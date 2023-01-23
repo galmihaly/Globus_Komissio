@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/circle.xml" value="0.2985" />
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/circle_progressbar_style.xml" value="0.2985" />
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/ic_back.xml" value="0.196" />
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_main.xml" value="0.27853260869565216" />
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_login.xml" value="0.27853260869565216" />
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_programstart.xml" value="0.33" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_main.xml" value="0.21965579710144928" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_login.xml" value="0.21965579710144928" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_programstart.xml" value="0.21965579710144928" />
