@@ -45,6 +45,7 @@ public class Pickings {
         this.name = name;
     }
 
+    @NonNull
     public String getDescription() {
         return description;
     }
@@ -61,6 +62,7 @@ public class Pickings {
         this.pickingStatusId = pickingStatusId;
     }
 
+    @NonNull
     public Date getDateCreate() {
         return dateCreate;
     }
@@ -69,6 +71,7 @@ public class Pickings {
         this.dateCreate = dateCreate;
     }
 
+    @NonNull
     public Date getDateMod() {
         return dateMod;
     }
