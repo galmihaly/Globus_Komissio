@@ -6,24 +6,13 @@
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/circle.xml" value="0.2985" />
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/circle_progressbar_style.xml" value="0.2985" />
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/ic_back.xml" value="0.196" />
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_barcode_login_page.xml" value="0.27853260869565216" />
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_main.xml" value="0.27853260869565216" />
+        <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_programstart.xml" value="0.27853260869565216" />
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_login.xml" value="0.27853260869565216" />
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_programstart.xml" value="0.33" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/barcode_edittext_background.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/button_background.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/button_blue_background.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/button_gray_background.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/circle.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/ic_back.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/ic_keyboard.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/ic_ok.xml" value="0.2265" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/ic_ready_button_gray_background.xml" value="0.121" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_barcode_login_page.xml" value="0.4" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_login_page.xml" value="0.20652173913043478" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_main.xml" value="0.21965579710144928" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_programstart.xml" value="0.6" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_barcode_login.xml" value="0.4" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_login.xml" value="0.21965579710144928" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_programstart.xml" value="0.21965579710144928" />
       </map>
     </option>

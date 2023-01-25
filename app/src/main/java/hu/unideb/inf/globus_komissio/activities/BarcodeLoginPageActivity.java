@@ -1,8 +1,10 @@
-package hu.unideb.inf.globus_komissio;
+package hu.unideb.inf.globus_komissio.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import hu.unideb.inf.globus_komissio.R;
 
 public class BarcodeLoginPageActivity extends AppCompatActivity {
 
