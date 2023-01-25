@@ -10,9 +10,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_programstart);
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.fragmentsLayout, new ProgramStartFragment()).commit();
+        fm.beginTransaction().replace(R.id.programStartCL, new ProgramStartFragment()).commit();
     }
 }
