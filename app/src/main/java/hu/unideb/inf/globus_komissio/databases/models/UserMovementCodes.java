@@ -8,21 +8,21 @@ import androidx.room.PrimaryKey;
 public class UserMovementCodes {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    private int us;
+    private long userId;
 
     @NonNull private long movementCodeId;
     @NonNull private int grantor;
     private String verify;
-    @NonNull private int rightIn;
-    @NonNull private int rightOut;
-    @NonNull private int userDefault;
+    @NonNull private boolean rightIn;
+    @NonNull private boolean rightOut;
+    @NonNull private boolean userDefault;
 
-    public int getUs() {
-        return us;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUs(int us) {
-        this.us = us;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public long getMovementCodeId() {
@@ -49,34 +49,34 @@ public class UserMovementCodes {
         this.verify = verify;
     }
 
-    public int getRightIn() {
+    public boolean getRightIn() {
         return rightIn;
     }
 
-    public void setRightIn(int rightIn) {
+    public void setRightIn(boolean rightIn) {
         this.rightIn = rightIn;
     }
 
-    public int getRightOut() {
+    public boolean getRightOut() {
         return rightOut;
     }
 
-    public void setRightOut(int rightOut) {
+    public void setRightOut(boolean rightOut) {
         this.rightOut = rightOut;
     }
 
-    public int getUserDefault() {
+    public boolean getUserDefault() {
         return userDefault;
     }
 
-    public void setUserDefault(int userDefault) {
+    public void setUserDefault(boolean userDefault) {
         this.userDefault = userDefault;
     }
 
     @Override
     public String toString() {
         return "UserMovementCodes{" +
-                "us=" + us +
+                "us=" + userId +
                 ", movementCodeId=" + movementCodeId +
                 ", grantor=" + grantor +
                 ", verify='" + verify + '\'' +

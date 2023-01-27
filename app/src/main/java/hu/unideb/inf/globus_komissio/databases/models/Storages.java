@@ -18,15 +18,15 @@ public class Storages {
     @NonNull private String name;
     private String comments;
     @NonNull private boolean active;
-    @NonNull private Date dateCreate;
-    @NonNull private Date dateMod;
-    private Date lastTransferData;
-    private Date lastTransferAction;
+    @NonNull private String dateCreate;
+    @NonNull private String dateMod;
+    private String lastTransferDate;
+    private String lastTransferAction;
     private int transferFlag;
     @NonNull private boolean pickingSource;
     @NonNull private boolean pickingTarget;
     private long receiverUserId;
-    private boolean pernament;
+    private boolean permanent;
     private long storageTypeId;
     private String parentId;
 
@@ -78,35 +78,35 @@ public class Storages {
         this.active = active;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateMod() {
+    public String getDateMod() {
         return dateMod;
     }
 
-    public void setDateMod(Date dateMod) {
+    public void setDateMod(String dateMod) {
         this.dateMod = dateMod;
     }
 
-    public Date getLastTransferData() {
-        return lastTransferData;
+    public String getLastTransferDate() {
+        return lastTransferDate;
     }
 
-    public void setLastTransferData(Date lastTransferData) {
-        this.lastTransferData = lastTransferData;
+    public void setLastTransferDate(String lastTransferDate) {
+        this.lastTransferDate = lastTransferDate;
     }
 
-    public Date getLastTransferAction() {
+    public String getLastTransferAction() {
         return lastTransferAction;
     }
 
-    public void setLastTransferAction(Date lastTransferAction) {
+    public void setLastTransferAction(String lastTransferAction) {
         this.lastTransferAction = lastTransferAction;
     }
 
@@ -142,12 +142,12 @@ public class Storages {
         this.receiverUserId = receiverUserId;
     }
 
-    public boolean isPernament() {
-        return pernament;
+    public boolean isPermanent() {
+        return permanent;
     }
 
-    public void setPernament(boolean pernament) {
-        this.pernament = pernament;
+    public void setPermanent(boolean permanent) {
+        this.permanent = permanent;
     }
 
     public long getStorageTypeId() {
@@ -177,13 +177,13 @@ public class Storages {
                 ", active=" + active +
                 ", dateCreate=" + dateCreate +
                 ", dateMod=" + dateMod +
-                ", lastTransferData=" + lastTransferData +
+                ", lastTransferData=" + lastTransferDate +
                 ", lastTransferAction=" + lastTransferAction +
                 ", transferFlag=" + transferFlag +
                 ", pickingSource=" + pickingSource +
                 ", pickingTarget=" + pickingTarget +
                 ", receiverUserId=" + receiverUserId +
-                ", pernament=" + pernament +
+                ", pernament=" + permanent +
                 ", storageTypeId=" + storageTypeId +
                 ", parentId='" + parentId + '\'' +
                 '}';

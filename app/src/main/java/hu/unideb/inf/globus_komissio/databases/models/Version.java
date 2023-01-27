@@ -13,7 +13,7 @@ public class Version {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    @NonNull private Date dateCreate;
+    @NonNull private String dateCreate;
     private String comments;
 
     public long getId() {
@@ -24,11 +24,11 @@ public class Version {
         this.id = id;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 

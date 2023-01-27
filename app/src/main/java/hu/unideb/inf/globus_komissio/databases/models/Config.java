@@ -12,7 +12,7 @@ public class Config {
     private long id;
 
     @NonNull private String configName;
-    @NonNull private int configValue;
+    @NonNull private String configValue;
     private long userId;
     private String comments;
 
@@ -20,7 +20,7 @@ public class Config {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -32,11 +32,11 @@ public class Config {
         this.configName = configName;
     }
 
-    public int getConfigValue() {
+    public String getConfigValue() {
         return configValue;
     }
 
-    public void setConfigValue(int configValue) {
+    public void setConfigValue(String configValue) {
         this.configValue = configValue;
     }
 

@@ -17,7 +17,7 @@ public class Users {
     @NonNull private String name;
     @NonNull private String password;
     @NonNull private boolean active;
-    private Date lastLogin;
+    private String lastLogin;
     private String email;
     private String telephone;
     private String rfid;
@@ -25,9 +25,9 @@ public class Users {
     private String barcode;
     private String internalId;
     @NonNull private long userId;
-    @NonNull private Date dateCreate;
-    @NonNull private Date dateMod;
-    private Date lastTransferDate;
+    @NonNull private String dateCreate;
+    @NonNull private String dateMod;
+    private String lastTransferDate;
     private String lastTransferAction;
     private int transferFlag;
     private String mobileFlexPassword;
@@ -74,11 +74,11 @@ public class Users {
         this.active = active;
     }
 
-    public Date getLastLogin() {
+    public String getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(String lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -138,27 +138,27 @@ public class Users {
         this.userId = userId;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateMod() {
+    public String getDateMod() {
         return dateMod;
     }
 
-    public void setDateMod(Date dateMod) {
+    public void setDateMod(String dateMod) {
         this.dateMod = dateMod;
     }
 
-    public Date getLastTransferDate() {
+    public String getLastTransferDate() {
         return lastTransferDate;
     }
 
-    public void setLastTransferDate(Date lastTransferDate) {
+    public void setLastTransferDate(String lastTransferDate) {
         this.lastTransferDate = lastTransferDate;
     }
 

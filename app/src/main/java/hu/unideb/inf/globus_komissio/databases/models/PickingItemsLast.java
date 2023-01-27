@@ -14,7 +14,7 @@ public class PickingItemsLast {
     private long id;
 
     @NonNull private long pickingId;
-    @NonNull private Date dateCreate;
+    @NonNull private String dateCreate;
     @NonNull private String artnr;
     private float quantity;
     @NonNull private String quantityUnit;
@@ -23,7 +23,7 @@ public class PickingItemsLast {
     @NonNull private long userId;
     @NonNull private long receiverUserId;
     @NonNull private String storageIdFrom;
-    @NonNull private String getStorageIdTo;
+    @NonNull private String storageIdTo;
     private String comments;
 
     public long getId() {
@@ -42,11 +42,11 @@ public class PickingItemsLast {
         this.pickingId = pickingId;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
@@ -112,12 +112,12 @@ public class PickingItemsLast {
         this.storageIdFrom = storageIdFrom;
     }
 
-    public String getGetStorageIdTo() {
-        return getStorageIdTo;
+    public String getStorageIdTo() {
+        return storageIdTo;
     }
 
-    public void setGetStorageIdTo(String getStorageIdTo) {
-        this.getStorageIdTo = getStorageIdTo;
+    public void setStorageIdTo(String storageIdTo) {
+        this.storageIdTo = storageIdTo;
     }
 
     public String getComments() {
@@ -142,7 +142,7 @@ public class PickingItemsLast {
                 ", userId=" + userId +
                 ", receiverUserId=" + receiverUserId +
                 ", storageIdFrom='" + storageIdFrom + '\'' +
-                ", getStorageIdTo='" + getStorageIdTo + '\'' +
+                ", getStorageIdTo='" + storageIdTo + '\'' +
                 ", comments='" + comments + '\'' +
                 '}';
     }

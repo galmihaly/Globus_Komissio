@@ -62,50 +62,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
         mCustomThreadPoolManager.setPresenterCallback(this);
     }
 
-    /*public void work1(Runnable runnable1, Runnable runnable2){
-        if(iMainActivityView == null) return;
-
-        // ThreadPoolExecutor-ra való esetleges lecserélés
-        executor = Executors.newSingleThreadExecutor();
-        
-        if(runnable1 != null){
-
-            futureTask1 = new FutureTask<>(runnable1, "FutureTask1 is done!!!");
-
-            executor.submit(futureTask1);
-            isNotDone = true;
-
-            while(isNotDone){
-                if (futureTask1.isDone()) {
-                    //Log.e("l:", "FutureTask1 is complete!!!");
-
-                    isNotDone = false;
-                }
-                else if (futureTask1.isCancelled()) Log.e("l:", "FutureTask1 is cancelled!!!");
-                //else Log.e("k:", "FutureTask1 is not complete!!!");
-            }
-        }
-
-        if(runnable2 != null){
-
-            futureTask2 = new FutureTask<>(runnable2, "FutureTask2 is done!!!");
-            executor.submit(futureTask2);
-            isNotDone = true;
-
-            while(isNotDone){
-                if (futureTask2.isDone()) {
-                    //Log.e("l:", "FutureTask2 is complete!!!");
-
-                    isNotDone = false;
-                }
-                else if (futureTask2.isCancelled()) Log.e("l:", "FutureTask2 is cancelled!!!");
-                //else Log.e("k:", "FutureTask2 is not complete!!!");
-            }
-        }
-
-    }*/
-
-    protected void method1(){
+    /*protected void method1(){
         Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
         List<User> userList = repository.Communicator.getAllUserData();
 
@@ -174,7 +131,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     public void method2(){
         CustomCallable callable = new CustomCallable();

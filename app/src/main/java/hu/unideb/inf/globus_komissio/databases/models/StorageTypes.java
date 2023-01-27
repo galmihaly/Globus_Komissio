@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class StoragesTypes {
+public class StorageTypes {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)

@@ -22,7 +22,7 @@ public class CustomCallable implements Callable {
     @Override
     public Object call() {
 
-        try {
+        /*try {
             if (Thread.interrupted()) throw new InterruptedException();
 
             Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
@@ -43,7 +43,7 @@ public class CustomCallable implements Callable {
 
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return null;
     }

@@ -55,7 +55,7 @@
                 <EditText
                     android:id="@+id/barcodeTextBox"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/barcode_edittext_background"
                     android:ems="10"

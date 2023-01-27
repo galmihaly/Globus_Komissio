@@ -10,7 +10,6 @@ import java.sql.Date;
 public class Devices {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
     private long id;
 
     @NonNull private String deviceId;

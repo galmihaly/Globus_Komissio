@@ -16,17 +16,17 @@ public class Pickings {
     private String name;
     @NonNull private String description;
     @NonNull private long pickingStatusId;
-    @NonNull private Date dateCreate;
-    @NonNull private Date dateMod;
-    private Date dateUpload;
-    private Date datePorcess;
+    @NonNull private String dateCreate;
+    @NonNull private String dateMod;
+    private String dateUpload;
+    private String datePorcess;
     @NonNull private long userId;
     @NonNull private long receiverUserId;
     @NonNull private long articleTypeId;
     @NonNull private long movementCodeId;
     private String comments;
     private String barcode;
-    private Date dateBook;
+    private String dateBook;
     private String resultText;
 
     public long getId() {
@@ -63,36 +63,36 @@ public class Pickings {
     }
 
     @NonNull
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
     @NonNull
-    public Date getDateMod() {
+    public String getDateMod() {
         return dateMod;
     }
 
-    public void setDateMod(Date dateMod) {
+    public void setDateMod(String dateMod) {
         this.dateMod = dateMod;
     }
 
-    public Date getDateUpload() {
+    public String getDateUpload() {
         return dateUpload;
     }
 
-    public void setDateUpload(Date dateUpload) {
+    public void setDateUpload(String dateUpload) {
         this.dateUpload = dateUpload;
     }
 
-    public Date getDatePorcess() {
+    public String getDatePorcess() {
         return datePorcess;
     }
 
-    public void setDatePorcess(Date datePorcess) {
+    public void setDatePorcess(String datePorcess) {
         this.datePorcess = datePorcess;
     }
 
@@ -144,11 +144,11 @@ public class Pickings {
         this.barcode = barcode;
     }
 
-    public Date getDateBook() {
+    public String getDateBook() {
         return dateBook;
     }
 
-    public void setDateBook(Date dateBook) {
+    public void setDateBook(String dateBook) {
         this.dateBook = dateBook;
     }
 

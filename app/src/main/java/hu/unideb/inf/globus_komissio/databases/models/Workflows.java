@@ -15,9 +15,9 @@ public class Workflows {
     private String name;
     private long infoSysId;
     @NonNull private boolean active;
-    @NonNull private Date dateCreate;
-    @NonNull private Date dateMod;
-    private Date lastTransferDate;
+    @NonNull private String dateCreate;
+    @NonNull private String dateMod;
+    private String lastTransferDate;
     private String lastTransferAction;
     private int transferFlag;
 
@@ -53,27 +53,27 @@ public class Workflows {
         this.active = active;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateMod() {
+    public String getDateMod() {
         return dateMod;
     }
 
-    public void setDateMod(Date dateMod) {
+    public void setDateMod(String dateMod) {
         this.dateMod = dateMod;
     }
 
-    public Date getLastTransferDate() {
+    public String getLastTransferDate() {
         return lastTransferDate;
     }
 
-    public void setLastTransferDate(Date lastTransferDate) {
+    public void setLastTransferDate(String lastTransferDate) {
         this.lastTransferDate = lastTransferDate;
     }
 

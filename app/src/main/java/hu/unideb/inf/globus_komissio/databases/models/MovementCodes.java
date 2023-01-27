@@ -17,8 +17,8 @@ public class MovementCodes {
     @NonNull private String name;
     private String comments;
     @NonNull private boolean active;
-    @NonNull private Date dateCreate;
-    @NonNull private Date dateMod;
+    @NonNull private String dateCreate;
+    @NonNull private String dateMod;
     private Date lastTransferDate;
     private String lastTransferAction;
     private int transferFlag;
@@ -63,19 +63,19 @@ public class MovementCodes {
         this.active = active;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateMod() {
+    public String getDateMod() {
         return dateMod;
     }
 
-    public void setDateMod(Date dateMod) {
+    public void setDateMod(String dateMod) {
         this.dateMod = dateMod;
     }
 

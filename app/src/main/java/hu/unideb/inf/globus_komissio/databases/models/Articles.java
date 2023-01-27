@@ -10,8 +10,7 @@ import java.sql.Date;
 public class Articles {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    private String id;
 
     @NonNull private String name;
     private String quantityUnit;
@@ -19,17 +18,17 @@ public class Articles {
     private boolean active;
     @NonNull private float price;
     @NonNull private long articleTypeId;
-    @NonNull private Date dateCreate;
-    @NonNull private Date dateMod;
-    private Date lastTransferDate;
+    @NonNull private String dateCreate;
+    @NonNull private String dateMod;
+    private String lastTransferDate;
     private String lastTransferAction;
     private int transferFlag;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -81,27 +80,27 @@ public class Articles {
         this.articleTypeId = articleTypeId;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateMod() {
+    public String getDateMod() {
         return dateMod;
     }
 
-    public void setDateMod(Date dateMod) {
+    public void setDateMod(String dateMod) {
         this.dateMod = dateMod;
     }
 
-    public Date getLastTransferDate() {
+    public String getLastTransferDate() {
         return lastTransferDate;
     }
 
-    public void setLastTransferDate(Date lastTransferDate) {
+    public void setLastTransferDate(String lastTransferDate) {
         this.lastTransferDate = lastTransferDate;
     }
 

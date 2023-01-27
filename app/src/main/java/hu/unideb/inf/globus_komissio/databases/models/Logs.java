@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 public class Logs {
@@ -15,7 +16,7 @@ public class Logs {
 
     @NonNull private long logTypeId;
     @NonNull private long logClassId;
-    @NonNull private Date timestamp;
+    @NonNull private String timestamp;
     private String message;
     private String exception;
     private String relatedId;
@@ -45,11 +46,11 @@ public class Logs {
         this.logClassId = logClassId;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

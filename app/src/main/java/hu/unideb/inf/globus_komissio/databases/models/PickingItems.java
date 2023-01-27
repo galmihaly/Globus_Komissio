@@ -26,10 +26,10 @@ public class PickingItems {
     @NonNull private String quantityUnit;
     @NonNull private long pickingStatusId;
     @NonNull private long deviceId;
-    @NonNull private Date dateCreate;
-    @NonNull private Date dateMod;
-    private Date dateUpload;
-    private Date dateProcess;
+    @NonNull private String dateCreate;
+    @NonNull private String dateMod;
+    private String dateUpload;
+    private String dateProcess;
     private String comments;
     private String barcode;
 
@@ -145,35 +145,35 @@ public class PickingItems {
         this.deviceId = deviceId;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateMod() {
+    public String getDateMod() {
         return dateMod;
     }
 
-    public void setDateMod(Date dateMod) {
+    public void setDateMod(String dateMod) {
         this.dateMod = dateMod;
     }
 
-    public Date getDateUpload() {
+    public String getDateUpload() {
         return dateUpload;
     }
 
-    public void setDateUpload(Date dateUpload) {
+    public void setDateUpload(String dateUpload) {
         this.dateUpload = dateUpload;
     }
 
-    public Date getDateProcess() {
+    public String getDateProcess() {
         return dateProcess;
     }
 
-    public void setDateProcess(Date dateProcess) {
+    public void setDateProcess(String dateProcess) {
         this.dateProcess = dateProcess;
     }
 
