@@ -10,7 +10,7 @@ import java.sql.Date;
 public class MovementCodes {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long id;
 
     @NonNull private int direction;
@@ -19,7 +19,7 @@ public class MovementCodes {
     @NonNull private boolean active;
     @NonNull private String dateCreate;
     @NonNull private String dateMod;
-    private Date lastTransferDate;
+    private String lastTransferDate;
     private String lastTransferAction;
     private int transferFlag;
 
@@ -79,11 +79,11 @@ public class MovementCodes {
         this.dateMod = dateMod;
     }
 
-    public Date getLastTransferDate() {
+    public String getLastTransferDate() {
         return lastTransferDate;
     }
 
-    public void setLastTransferDate(Date lastTransferDate) {
+    public void setLastTransferDate(String lastTransferDate) {
         this.lastTransferDate = lastTransferDate;
     }
 

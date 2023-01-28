@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class LanguageCodes {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private String id;
 
     @NonNull private String name;

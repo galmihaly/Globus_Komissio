@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class Config {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long id;
 
     @NonNull private String configName;

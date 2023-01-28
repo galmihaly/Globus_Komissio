@@ -10,8 +10,9 @@ import java.sql.Date;
 public class Workflows {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private String id;
+
     private String name;
     private long infoSysId;
     @NonNull private boolean active;

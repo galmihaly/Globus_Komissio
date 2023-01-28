@@ -4,12 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
-
 @Entity
 public class Articles {
 
     @NonNull
+    @PrimaryKey
     private String id;
 
     @NonNull private String name;

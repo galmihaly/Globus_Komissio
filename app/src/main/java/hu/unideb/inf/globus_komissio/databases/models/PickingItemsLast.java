@@ -10,7 +10,7 @@ import java.sql.Date;
 public class PickingItemsLast {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long id;
 
     @NonNull private long pickingId;

@@ -3,14 +3,27 @@ package hu.unideb.inf.globus_komissio.databases.models;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
 @Entity
 public class UserRights {
+
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @NonNull private long userId;
     @NonNull private long rightId;
     @NonNull private long grantor;
     @NonNull private String verify;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public long getUserId() {
         return userId;

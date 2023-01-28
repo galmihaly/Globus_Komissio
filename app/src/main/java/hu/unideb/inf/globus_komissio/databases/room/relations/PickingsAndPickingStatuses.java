@@ -1,4 +1,4 @@
-package hu.unideb.inf.globus_komissio.databases.relations;
+package hu.unideb.inf.globus_komissio.databases.room.relations;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
-
 @Entity
 public class Pickings {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long id;
 
     private String name;
@@ -19,7 +17,7 @@ public class Pickings {
     @NonNull private String dateCreate;
     @NonNull private String dateMod;
     private String dateUpload;
-    private String datePorcess;
+    private String dateProcess;
     @NonNull private long userId;
     @NonNull private long receiverUserId;
     @NonNull private long articleTypeId;
@@ -88,12 +86,12 @@ public class Pickings {
         this.dateUpload = dateUpload;
     }
 
-    public String getDatePorcess() {
-        return datePorcess;
+    public String getDateProcess() {
+        return dateProcess;
     }
 
-    public void setDatePorcess(String datePorcess) {
-        this.datePorcess = datePorcess;
+    public void setDateProcess(String dateProcess) {
+        this.dateProcess = dateProcess;
     }
 
     public long getUserId() {
@@ -170,7 +168,7 @@ public class Pickings {
                 ", dateCreate=" + dateCreate +
                 ", dateMod=" + dateMod +
                 ", dateUpload=" + dateUpload +
-                ", datePorcess=" + datePorcess +
+                ", datePorcess=" + dateProcess +
                 ", userId=" + userId +
                 ", receiverUserId=" + receiverUserId +
                 ", articleTypeId=" + articleTypeId +

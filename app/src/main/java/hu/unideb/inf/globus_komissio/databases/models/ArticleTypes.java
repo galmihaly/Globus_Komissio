@@ -8,11 +8,11 @@ import androidx.room.PrimaryKey;
 public class ArticleTypes {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long id;
 
     @NonNull private String name;
-    private String commnents;
+    private String comments;
 
     public long getId() {
         return id;
@@ -30,12 +30,12 @@ public class ArticleTypes {
         this.name = name;
     }
 
-    public String getCommnents() {
-        return commnents;
+    public String getComments() {
+        return comments;
     }
 
-    public void setCommnents(String commnents) {
-        this.commnents = commnents;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ArticleTypes {
         return "ArticleTypes{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", Commnents='" + commnents + '\'' +
+                ", Commnents='" + comments + '\'' +
                 '}';
     }
 }

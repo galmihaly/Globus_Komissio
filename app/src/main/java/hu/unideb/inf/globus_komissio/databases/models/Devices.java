@@ -10,6 +10,7 @@ import java.sql.Date;
 public class Devices {
 
     @NonNull
+    @PrimaryKey
     private long id;
 
     @NonNull private String deviceId;
@@ -21,7 +22,7 @@ public class Devices {
     private String storageId;
     @NonNull private int loginMode;
     private long lastUserId;
-    private Date lastUserLogin;
+    private String lastUserLogin;
     private String ipAddress;
     private int port;
     private int programType;
@@ -107,11 +108,11 @@ public class Devices {
         this.lastUserId = lastUserId;
     }
 
-    public Date getLastUserLogin() {
+    public String getLastUserLogin() {
         return lastUserLogin;
     }
 
-    public void setLastUserLogin(Date lastUserLogin) {
+    public void setLastUserLogin(String lastUserLogin) {
         this.lastUserLogin = lastUserLogin;
     }
 

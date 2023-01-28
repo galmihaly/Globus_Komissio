@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class UserArticleTypes {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long userId;
 
     @NonNull private long articleTypeId;

@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 public class Logs {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long id;
 
     @NonNull private long logTypeId;

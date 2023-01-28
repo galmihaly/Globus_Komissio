@@ -31,7 +31,6 @@ import hu.unideb.inf.globus_komissio.databases.models.PrintTemplates;
 import hu.unideb.inf.globus_komissio.databases.models.Rights;
 import hu.unideb.inf.globus_komissio.databases.models.Storages;
 import hu.unideb.inf.globus_komissio.databases.models.StorageTypes;
-import hu.unideb.inf.globus_komissio.databases.models.Translations;
 import hu.unideb.inf.globus_komissio.databases.models.UserArticleTypes;
 import hu.unideb.inf.globus_komissio.databases.models.UserMovementCodes;
 import hu.unideb.inf.globus_komissio.databases.models.UserRights;
@@ -166,7 +165,7 @@ public class SQLDatabase implements Communicator{
 
                     articleTypes.setId(rs.getLong(1));
                     articleTypes.setName(rs.getString(2));
-                    articleTypes.setCommnents(rs.getString(3));
+                    articleTypes.setComments(rs.getString(3));
 
                     articleTypesList.add(articleTypes);
                     size++;
@@ -286,7 +285,7 @@ public class SQLDatabase implements Communicator{
                     devices.setStorageId(rs.getString(8));
                     devices.setLoginMode(rs.getInt(9));
                     devices.setLastUserId(rs.getInt(10));
-                    devices.setLastUserLogin(rs.getDate(11));
+                    devices.setLastUserLogin(rs.getString(11));
                     devices.setIpAddress(rs.getString(12));
                     devices.setPort(rs.getInt(13));
                     devices.setProgramType(rs.getInt(14));
@@ -630,7 +629,7 @@ public class SQLDatabase implements Communicator{
                     movementCodes.setActive(rs.getBoolean(5));
                     movementCodes.setDateCreate(rs.getString(6));
                     movementCodes.setDateMod(rs.getString(7));
-                    movementCodes.setLastTransferDate(rs.getDate(8));
+                    movementCodes.setLastTransferDate(rs.getString(8));
                     movementCodes.setLastTransferAction(rs.getString(9));
                     movementCodes.setTransferFlag(rs.getInt(10));
 
@@ -885,7 +884,7 @@ public class SQLDatabase implements Communicator{
                     pickings.setDateCreate(rs.getString(5));
                     pickings.setDateMod(rs.getString(6));
                     pickings.setDateUpload(rs.getString(7));
-                    pickings.setDatePorcess(rs.getString(8));
+                    pickings.setDateProcess(rs.getString(8));
                     pickings.setUserId(rs.getLong(9));
                     pickings.setReceiverUserId(rs.getLong(10));
                     pickings.setArticleTypeId(rs.getLong(11));
@@ -1273,61 +1272,6 @@ public class SQLDatabase implements Communicator{
         }
 
         return storageTypesList;
-    }
-
-    @Override
-    public List<Translations> getAllTranslations() {
-        getConnection();
-
-        List<Translations> translationsList = null;
-        if(connection != null) {
-            try {
-
-                translationsList = new ArrayList<>();
-
-                query = "SELECT [LanguageCode], [WordCode], [Text] FROM Translations";
-
-                stmt = connection.createStatement();
-                rs = stmt.executeQuery(query);
-                size = 0;
-
-                while (rs.next()) {
-                    Translations translations = new Translations();
-
-                    translations.setLanguageCode(rs.getString(1));
-                    translations.setWordCode(rs.getString(2));
-                    translations.setText(rs.getString(2));
-
-                    translationsList.add(translations);
-                    size++;
-                }
-
-                if(size == 0) {
-                    Log.i("s", "Az Translations táblában a lekérdezhető adatok száma 0!");
-                    return null;
-                }
-
-                rs.close();
-                stmt.close();
-            }
-            catch (SQLException e) {
-                Log.e("s", "Sikertelen olvasás az adatbázisból!!!");
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    Log.e("SQLException", "Az MSSql adatbázis kacsolatának felbontása sikertelen!");
-                }
-            }
-        }
-        else{
-            Log.i("s", "Nem alakult ki kapcsolat az adatbázis és az alkalmazás között!");
-            return null;
-        }
-
-        return translationsList;
     }
 
     @Override

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class MovementCodeStorages {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long movementCodeId;
 
     @NonNull private String storageId;

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class UserMovementCodes {
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long userId;
 
     @NonNull private long movementCodeId;

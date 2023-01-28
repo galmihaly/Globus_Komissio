@@ -7,19 +7,12 @@ import android.os.Message;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityPresenter;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityView;
 import hu.unideb.inf.globus_komissio.databases.room.Room;
-import hu.unideb.inf.globus_komissio.databases.room.UserAndUserCard;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.Card;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.CommunicatorTypeEnums;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.Repository;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.User;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.UserCard;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomCallable;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomHandlerThread;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;

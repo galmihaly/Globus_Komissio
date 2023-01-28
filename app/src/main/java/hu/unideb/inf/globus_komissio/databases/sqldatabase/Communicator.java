@@ -22,7 +22,6 @@ import hu.unideb.inf.globus_komissio.databases.models.PrintTemplates;
 import hu.unideb.inf.globus_komissio.databases.models.Rights;
 import hu.unideb.inf.globus_komissio.databases.models.Storages;
 import hu.unideb.inf.globus_komissio.databases.models.StorageTypes;
-import hu.unideb.inf.globus_komissio.databases.models.Translations;
 import hu.unideb.inf.globus_komissio.databases.models.UserArticleTypes;
 import hu.unideb.inf.globus_komissio.databases.models.UserMovementCodes;
 import hu.unideb.inf.globus_komissio.databases.models.UserRights;
@@ -54,7 +53,6 @@ public interface Communicator {
     List<Rights> getAllRights();
     List<Storages> getAllStorages();
     List<StorageTypes> getAllStoragesTypes();
-    List<Translations> getAllTranslations();
     List<UserArticleTypes> getAllUserArticleTypes();
     List<UserMovementCodes> getAllUserMovementCodes();
     List<UserRights> getAllUserRights();
