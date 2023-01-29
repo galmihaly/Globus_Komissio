@@ -2,9 +2,63 @@ package hu.unideb.inf.globus_komissio.databases.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = PickingStatuses.class,
+                        parentColumns = "id",
+                        childColumns = "pickingStatusId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = ArticleTypes.class,
+                        parentColumns = "id",
+                        childColumns = "articleTypeId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = MovementCodes.class,
+                        parentColumns = "id",
+                        childColumns = "movementCodeId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = PickingStatuses.class,
+                        parentColumns = "id",
+                        childColumns = "pickingStatusId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "receiverUserId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                )
+        },
+        indices = {
+                @Index(value = {"pickingStatusId"}),
+                @Index(value = {"articleTypeId"}),
+                @Index(value = {"movementCodeId"}),
+                @Index(value = {"userId"}),
+                @Index(value = {"receiverUserId"})
+        }
+)
 public class Pickings {
 
     @NonNull

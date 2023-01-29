@@ -2,9 +2,39 @@ package hu.unideb.inf.globus_komissio.databases.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = MovementCodes.class,
+                        parentColumns = "id",
+                        childColumns = "movementCodeId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "grantor",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                )
+        },
+        indices = {
+                @Index(value = {"movementCodeId"}),
+                @Index(value = {"grantor"})
+        }
+)
 public class UserMovementCodes {
     @NonNull
     @PrimaryKey

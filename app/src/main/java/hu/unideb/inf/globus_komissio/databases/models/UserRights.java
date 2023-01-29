@@ -3,9 +3,31 @@ package hu.unideb.inf.globus_komissio.databases.models;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Rights.class,
+                        parentColumns = "id",
+                        childColumns = "rightId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                )
+        },
+        indices = {
+                @Index(value = {"rightId"}),
+                @Index(value = {"userId"})
+        }
+)
 public class UserRights {
 
     @NonNull

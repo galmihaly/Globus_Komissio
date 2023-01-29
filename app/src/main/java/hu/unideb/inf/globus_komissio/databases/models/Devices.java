@@ -2,15 +2,47 @@ package hu.unideb.inf.globus_komissio.databases.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.sql.Date;
 
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = DeviceTypes.class,
+                        parentColumns = "id",
+                        childColumns = "deviceTypeId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Storages.class,
+                        parentColumns = "id",
+                        childColumns = "storageId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                )
+        },
+        indices = {
+                @Index(value = {"deviceTypeId"}),
+                @Index(value = {"storageId"}),
+                @Index(value = {"userId"})
+
+        }
+)
 public class Devices {
 
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
 
     @NonNull private String deviceId;

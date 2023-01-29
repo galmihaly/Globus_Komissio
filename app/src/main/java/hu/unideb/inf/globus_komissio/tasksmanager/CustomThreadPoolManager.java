@@ -16,16 +16,17 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("unchecked")
 public class CustomThreadPoolManager {
 
-    private static CustomThreadPoolManager sInstance;
-    private static int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
+    private static final CustomThreadPoolManager sInstance;
+    private static int NUMBER_OF_CORES;
     private static final int KEEP_ALIVE_TIME = 1;
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT;
 
     private final ExecutorService mExecutorService;
     private final BlockingQueue<Runnable> mTaskQueue;
-    private List<Future> mRunningTaskList;
+    private final List<Future> mRunningTaskList;
 
     private WeakReference<PresenterThreadCallback> presenterThreadCallbackWeakReference;
 
@@ -37,6 +38,7 @@ public class CustomThreadPoolManager {
     private CustomThreadPoolManager() {
         mTaskQueue = new LinkedBlockingQueue<>();
         mRunningTaskList = new ArrayList<>();
+        NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
         mExecutorService = new ThreadPoolExecutor(NUMBER_OF_CORES, NUMBER_OF_CORES*2, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, mTaskQueue, new BackgroundThreadFactory());
     }
 

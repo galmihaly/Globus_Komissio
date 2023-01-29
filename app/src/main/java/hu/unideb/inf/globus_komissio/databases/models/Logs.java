@@ -2,12 +2,35 @@ package hu.unideb.inf.globus_komissio.databases.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = LogTypes.class,
+                        parentColumns = "id",
+                        childColumns = "logTypeId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = LogClasses.class,
+                        parentColumns = "id",
+                        childColumns = "logClassId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                )
+        },
+        indices = {
+                @Index(value = {"logTypeId"}),
+                @Index(value = {"logClassId"})
+        }
+)
 public class Logs {
 
     @NonNull

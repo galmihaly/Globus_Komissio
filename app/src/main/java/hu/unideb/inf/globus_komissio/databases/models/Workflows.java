@@ -2,6 +2,7 @@ package hu.unideb.inf.globus_komissio.databases.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.sql.Date;

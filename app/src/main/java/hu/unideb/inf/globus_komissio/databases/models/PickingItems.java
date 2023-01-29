@@ -2,15 +2,94 @@ package hu.unideb.inf.globus_komissio.databases.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.sql.Date;
 
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Workflows.class,
+                        parentColumns = "id",
+                        childColumns = "workFlowId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Articles.class,
+                        parentColumns = "id",
+                        childColumns = "articleId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Devices.class,
+                        parentColumns = "id",
+                        childColumns = "deviceId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Pickings.class,
+                        parentColumns = "id",
+                        childColumns = "pickingId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = PickingStatuses.class,
+                        parentColumns = "id",
+                        childColumns = "pickingStatusId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Storages.class,
+                        parentColumns = "id",
+                        childColumns = "pickingStorageId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Storages.class,
+                        parentColumns = "id",
+                        childColumns = "sourceStorageId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "receiverUserId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                )
+        },
+        indices = {
+                @Index(value = {"workFlowId"}),
+                @Index(value = {"articleId"}),
+                @Index(value = {"deviceId"}),
+                @Index(value = {"pickingId"}),
+                @Index(value = {"pickingStatusId"}),
+                @Index(value = {"pickingStorageId"}),
+                @Index(value = {"sourceStorageId"}),
+                @Index(value = {"userId"}),
+                @Index(value = {"receiverUserId"})
+        }
+)
 public class PickingItems {
 
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
 
     @NonNull private long pickingId;

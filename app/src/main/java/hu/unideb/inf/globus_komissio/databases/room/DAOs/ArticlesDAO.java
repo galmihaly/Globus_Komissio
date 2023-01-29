@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface ArticlesDAO {
     @Query("UPDATE Articles SET name= :name, quantityUnit= :quantityUnit, barcode= :barcode, active= :active, price= :price, dateCreate= :dateCreate, dateMod= :dateMod, lastTransferDate= :lastTransferDate, lastTransferAction= :lastTransferAction, transferFlag= :transferFlag WHERE id = :id")
     void updateArticle(String id, String name, String quantityUnit, String barcode, boolean active, float price, String dateCreate, String dateMod, String lastTransferDate, String lastTransferAction, int transferFlag) throws Exception;
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setArticle(Articles articles) throws Exception;
 }
