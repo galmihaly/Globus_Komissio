@@ -29,7 +29,7 @@ public class BarcodeLoginPageActivity extends AppCompatActivity implements ILogi
         setContentView(R.layout.activity_barcode_login_page);
         initUiElements();
 
-        //editText.setShowSoftInputOnFocus(true);
+        //billentyűzet megjelenítés kell még ide (opcionális)
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
