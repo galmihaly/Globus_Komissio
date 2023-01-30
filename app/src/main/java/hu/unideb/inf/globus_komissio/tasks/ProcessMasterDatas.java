@@ -1,6 +1,7 @@
 package hu.unideb.inf.globus_komissio.tasks;
 
 import android.os.Message;
+import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -10,10 +11,12 @@ import hu.unideb.inf.globus_komissio.LoggerElements.ApplicationLogger;
 import hu.unideb.inf.globus_komissio.LoggerElements.LogLevel;
 import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.models.Devices;
+import hu.unideb.inf.globus_komissio.databases.models.Logs;
 import hu.unideb.inf.globus_komissio.databases.models.MovementCodeStorages;
 import hu.unideb.inf.globus_komissio.databases.models.PickingItems;
 import hu.unideb.inf.globus_komissio.databases.models.PickingItemsLast;
 import hu.unideb.inf.globus_komissio.databases.models.Pickings;
+import hu.unideb.inf.globus_komissio.databases.models.PrintTemplates;
 import hu.unideb.inf.globus_komissio.databases.models.Rights;
 import hu.unideb.inf.globus_komissio.databases.models.Storages;
 import hu.unideb.inf.globus_komissio.databases.models.UserArticleTypes;
@@ -32,19 +35,16 @@ public class ProcessMasterDatas implements Callable {
     private WeakReference<CustomThreadPoolManager> ctpmw;
     private Room room;
 
-    private List<PickingItemsLast> pickingItemsLastList;
-    private List<Users> usersList;
     private List<UserRights> userRightsList;
-    private List<Rights> rightsList;
-    private List<UserArticleTypes> userArticleTypesList;
-    private List<Pickings> pickingsList;
-    private List<PickingItems> pickingItemsList;
     private List<Devices> devicesList;
+    private List<Pickings> pickingsList;
+    private List<UserArticleTypes> userArticleTypesList;
+    private List<PickingItems> pickingItemsList;
     private List<MovementCodeStorages> movementCodeStoragesList;
     private List<UserMovementCodes> userMovementCodesList;
     private List<Articles> articlesList;
-    private List<Storages> storagesList;
-    private List<Workflows> workflowsList;
+    private List<PrintTemplates> printTemplatesList;
+    private List<Logs> logsList;
 
     public void setCustomThreadPoolManager(CustomThreadPoolManager customThreadPoolManager) {
         this.ctpmw = new WeakReference<>(customThreadPoolManager);
@@ -85,24 +85,21 @@ public class ProcessMasterDatas implements Callable {
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból megkezdődött.");
 
-            usersList = repository.Communicator.getAllUsers();
             userRightsList = repository.Communicator.getAllUserRights();
-            rightsList = repository.Communicator.getAllRights();
-            pickingItemsLastList = repository.Communicator.getAllPickingItemsLast();
-            userArticleTypesList = repository.Communicator.getAllUserArticleTypes();
             pickingsList = repository.Communicator.getAllPickings();
-            workflowsList = repository.Communicator.getAllWorkflows();
-            devicesList = repository.Communicator.getAllDevices();
+            userArticleTypesList = repository.Communicator.getAllUserArticleTypes();
             movementCodeStoragesList = repository.Communicator.getAllMovementCodeStorages();
             userMovementCodesList = repository.Communicator.getAllUserMovementCodes();
             articlesList = repository.Communicator.getAllArticles();
-            storagesList = repository.Communicator.getAllStorages();
+            devicesList = repository.Communicator.getAllDevices();
             pickingItemsList = repository.Communicator.getAllPickingItems();
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból befejeződött.");
         }
         catch (Exception e){
             ApplicationLogger.logging(LogLevel.FATAL, e.getMessage());
+
+            e.printStackTrace();
 
             if(ctpmw != null && ctpmw.get() != null) {
                 Message message = Util.createMessage(Util.SQL_READ_FAIL, e.getMessage());
@@ -116,25 +113,16 @@ public class ProcessMasterDatas implements Callable {
         try {
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba elkezdődött.");
 
-            room.usersDAO().setUser(usersList);
-            room.rightsDAO().setRight(rightsList);
+            // független táblák -----------------------------------------------------
             room.userRightsDAO().setUserRight(userRightsList);
-            room.userMovementCodesDAO().setUserMovementCode(userMovementCodesList);
-            room.storagesDAO().setStorage(storagesList);
-            room.workflowsDAO().setWorkflow(workflowsList);
-            room.pickingItemLastDAO().setPickingItemsLast(pickingItemsLastList);
-
-            room.userArticleTypesDAO().setUserArticleType(userArticleTypesList);
             room.pickingsDAO().setPicking(pickingsList);
-
+            room.userArticleTypesDAO().setUserArticleType(userArticleTypesList);
             room.movementCodesStoragesDAO().setMovementCodeStorage(movementCodeStoragesList);
+            room.userMovementCodesDAO().setUserMovementCode(userMovementCodesList);
             room.articlesDAO().setArticle(articlesList);
-
-
-            //ezeket is megkell nézni ma
-
-            //room.devicesDAO().setDevice(devicesList);
-            //room.pickingItemsDAO().setPickingItem(pickingItemsList);
+            room.devicesDAO().setDevice(devicesList);
+            room.pickingItemsDAO().setPickingItem(pickingItemsList);
+            //-----------------------------------------------------------------------
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
 

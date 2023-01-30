@@ -7,12 +7,14 @@ import android.os.Message;
 
 import java.lang.ref.WeakReference;
 
+import hu.unideb.inf.globus_komissio.Enums.PageEnums;
 import hu.unideb.inf.globus_komissio.LoggerElements.ApplicationLogger;
 import hu.unideb.inf.globus_komissio.LoggerElements.LogLevel;
 import hu.unideb.inf.globus_komissio.Enums.UiElementsEnums;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityPresenter;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityView;
 import hu.unideb.inf.globus_komissio.tasks.ProcessBaseDatas;
+import hu.unideb.inf.globus_komissio.tasks.ProcessFinishTask;
 import hu.unideb.inf.globus_komissio.tasks.ProcessMasterDatas;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;
 import hu.unideb.inf.globus_komissio.tasksmanager.PresenterThreadCallback;
@@ -22,7 +24,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
 
     private IMainActivityView iMainActivityView;
     private CustomThreadPoolManager mCustomThreadPoolManager;
-    private UiHandler mUiHandler;
+    private MainActivityPresenter.UiHandler mUiHandler;
 
     public MainActivityPresenter(IMainActivityView iMainActivityView) {
         this.iMainActivityView = iMainActivityView;
@@ -88,6 +90,24 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
         }
     }
 
+    @Override
+    public void initFinishProcess() {
+        try {
+            iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_4);
+            ApplicationLogger.logging(LogLevel.INFORMATION, "A befejezés folyamat inicializálása elkezdődött.");
+
+            ProcessFinishTask callable = new ProcessFinishTask();
+            callable.setCustomThreadPoolManager(mCustomThreadPoolManager);
+            mCustomThreadPoolManager.addCallableMethod(callable);
+
+            ApplicationLogger.logging(LogLevel.INFORMATION, "A befejezés inicializálása befejeződött.");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            ApplicationLogger.logging(LogLevel.FATAL, e.getMessage());
+        }
+    }
+
 
     @Override
     public void sendResultToPresenter(Message message) {
@@ -120,6 +140,12 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
                 }
                 case Util.PROCESS_FINISH_2:{
                     iMainActivityViewWeakReference.get().settingUiElementsVisibility(UiElementsEnums.READY_STATE_3);
+                    iMainActivityPresenterWeakReference.get().initFinishProcess();
+                    break;
+                }
+                case Util.PROCESS_FINISH_3:{
+                    iMainActivityViewWeakReference.get().settingUiElementsVisibility(UiElementsEnums.READY_STATE_4);
+                    iMainActivityViewWeakReference.get().loadOtherActivityPages(PageEnums.BARCODE_LOGINPAGE_ACTIVITY);
                     break;
                 }
                 case Util.ROOM_SEND_FAIL:{

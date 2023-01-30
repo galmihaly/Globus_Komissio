@@ -6,4 +6,5 @@ public interface IMainActivityPresenter {
     void initTaskManager();
     void initBaseProcess();
     void initMasterDataProcess();
+    void initFinishProcess();
 }

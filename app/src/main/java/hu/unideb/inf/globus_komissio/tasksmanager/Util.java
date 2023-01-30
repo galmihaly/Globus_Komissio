@@ -15,6 +15,7 @@ public class Util {
     public static final int ROOM_SEND_FAIL = 4;
     public static final int SQL_READ_FAIL = 5;
     public static final int PROCESS_FINISH_2 = 6;
+    public static final int PROCESS_FINISH_3 = 7;
     public static final String MESSAGE_BODY = "MESSAGE_BODY";
 
     public static String getReadableTime() {

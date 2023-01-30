@@ -21,11 +21,19 @@ import androidx.room.PrimaryKey;
                         childColumns = "userId",
                         onUpdate = ForeignKey.CASCADE,
                         onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "grantor",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
                 )
         },
         indices = {
                 @Index(value = {"rightId"}),
-                @Index(value = {"userId"})
+                @Index(value = {"userId"}),
+                @Index(value = {"grantor"})
         }
 )
 public class UserRights {

@@ -14,10 +14,26 @@ import androidx.room.PrimaryKey;
                         childColumns = "articleTypeId",
                         onUpdate = ForeignKey.CASCADE,
                         onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "grantor",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
                 )
         },
         indices = {
-                @Index(value = {"articleTypeId"})
+                @Index(value = {"articleTypeId"}),
+                @Index(value = {"grantor"}),
+                @Index(value = {"userId"})
         }
 )
 public class UserArticleTypes {

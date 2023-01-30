@@ -15,10 +15,15 @@ import hu.unideb.inf.globus_komissio.databases.models.LogClasses;
 import hu.unideb.inf.globus_komissio.databases.models.LogTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Logs;
 import hu.unideb.inf.globus_komissio.databases.models.MovementCodes;
+import hu.unideb.inf.globus_komissio.databases.models.PickingItemsLast;
 import hu.unideb.inf.globus_komissio.databases.models.PickingStatuses;
 import hu.unideb.inf.globus_komissio.databases.models.PrintTemplateTypes;
 import hu.unideb.inf.globus_komissio.databases.models.PrintTemplates;
+import hu.unideb.inf.globus_komissio.databases.models.Rights;
 import hu.unideb.inf.globus_komissio.databases.models.StorageTypes;
+import hu.unideb.inf.globus_komissio.databases.models.Storages;
+import hu.unideb.inf.globus_komissio.databases.models.UserMovementCodes;
+import hu.unideb.inf.globus_komissio.databases.models.Users;
 import hu.unideb.inf.globus_komissio.databases.models.Version;
 import hu.unideb.inf.globus_komissio.databases.models.Workflows;
 import hu.unideb.inf.globus_komissio.databases.room.Room;
@@ -32,18 +37,24 @@ public class ProcessBaseDatas implements Callable {
     private WeakReference<CustomThreadPoolManager> ctpmw;
     private Room room;
 
+
     private List<Version> versionsList;
     private List<Config> configList;
-    private List<PrintTemplateTypes> printTemplateTypesList;
-    private List<PrintTemplates> printTemplatesList;
-    private List<Logs> logsList;
-    private List<LogTypes> logTypesList;
-    private List<LogClasses> logClassesList;
-    private List<ArticleTypes> articleTypesList;
+    private List<StorageTypes> storageTypesList;
+    private List<PickingItemsLast> pickingItemsLastList;
+    private List<Workflows> workflowsList;
+    private List<Users> usersList;
+    private List<Rights> rightsList;
+    private List<Storages> storagesList;
     private List<PickingStatuses> pickingStatusesList;
     private List<DeviceTypes> deviceTypesList;
+    private List<PrintTemplateTypes> printTemplateTypesList;
+    private List<LogTypes> logTypesList;
+    private List<LogClasses> logClassesList;
     private List<MovementCodes> movementCodesList;
-    private List<StorageTypes> storageTypesList;
+    private List<ArticleTypes> articleTypesList;
+
+
 
     public void setCustomThreadPoolManager(CustomThreadPoolManager customThreadPoolManager) {
         this.ctpmw = new WeakReference<>(customThreadPoolManager);
@@ -84,18 +95,23 @@ public class ProcessBaseDatas implements Callable {
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból megkezdődött.");
 
+            // független táblák --------------------------------------------------------
             configList = repository.Communicator.getAllConfig();
-            printTemplateTypesList = repository.Communicator.getAllPrintTemplateTypes();
-            printTemplatesList = repository.Communicator.getAllPrintTemplates();
-            logsList = repository.Communicator.getAllLogs();
-            logTypesList = repository.Communicator.getAllLogTypes();
-            logClassesList = repository.Communicator.getAllLogClasses();
-            articleTypesList = repository.Communicator.getAllArticleTypes();
-            pickingStatusesList = repository.Communicator.getAllPickingStatuses();
-            deviceTypesList = repository.Communicator.getAllDeviceTypes();
-            movementCodesList = repository.Communicator.getAllMovementCodes();
             versionsList = repository.Communicator.getAllVersion();
             storageTypesList = repository.Communicator.getAllStoragesTypes();
+            pickingItemsLastList = repository.Communicator.getAllPickingItemsLast();
+            workflowsList = repository.Communicator.getAllWorkflows();
+            usersList = repository.Communicator.getAllUsers();
+            rightsList = repository.Communicator.getAllRights();
+            storagesList = repository.Communicator.getAllStorages();
+            pickingStatusesList = repository.Communicator.getAllPickingStatuses();
+            deviceTypesList = repository.Communicator.getAllDeviceTypes();
+            printTemplateTypesList = repository.Communicator.getAllPrintTemplateTypes();
+            logTypesList = repository.Communicator.getAllLogTypes();
+            logClassesList = repository.Communicator.getAllLogClasses();
+            movementCodesList = repository.Communicator.getAllMovementCodes();
+            articleTypesList = repository.Communicator.getAllArticleTypes();
+            //-----------------------------------------------------------------------------
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból befejeződött.");
         }
@@ -114,18 +130,23 @@ public class ProcessBaseDatas implements Callable {
         try {
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba elkezdődött.");
 
-            room.printTemplateTypesDAO().setPrintTemplateType(printTemplateTypesList);
-            room.printTemplatesDAO().setPrintTemplate(printTemplatesList);
-            room.logTypesDAO().setLogType(logTypesList);
-            room.logClassesDAO().setLogClass(logClassesList);
-            room.logsDAO().setLog(logsList);
-            room.articleTypesDAO().setArticleTypes(articleTypesList);
-            room.pickingStatusesDAO().setPickingStatuse(pickingStatusesList);
-            room.deviceTypesDAO().setDeviceType(deviceTypesList);
-            room.movementCodesDAO().setMovementCode(movementCodesList);
+            // független táblák --------------------------------------------------
             room.configDAO().setConfig(configList);
             room.versionDAO().setVersion(versionsList);
             room.storageTypesDAO().setStorageType(storageTypesList);
+            room.pickingItemLastDAO().setPickingItemsLast(pickingItemsLastList);
+            room.workflowsDAO().setWorkflow(workflowsList);
+            room.usersDAO().setUser(usersList);
+            room.rightsDAO().setRight(rightsList);
+            room.storagesDAO().setStorage(storagesList);
+            room.pickingStatusesDAO().setPickingStatuse(pickingStatusesList);
+            room.deviceTypesDAO().setDeviceType(deviceTypesList);
+            room.printTemplateTypesDAO().setPrintTemplateType(printTemplateTypesList);
+            room.logTypesDAO().setLogType(logTypesList);
+            room.logClassesDAO().setLogClass(logClassesList);
+            room.movementCodesDAO().setMovementCode(movementCodesList);
+            room.articleTypesDAO().setArticleTypes(articleTypesList);
+            //----------------------------------------------------------------------
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
 

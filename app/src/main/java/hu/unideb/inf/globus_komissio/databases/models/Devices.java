@@ -1,6 +1,7 @@
 package hu.unideb.inf.globus_komissio.databases.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -30,20 +31,12 @@ import java.sql.Date;
                         childColumns = "userId",
                         onUpdate = ForeignKey.CASCADE,
                         onDelete = ForeignKey.CASCADE
-                ),
-                @ForeignKey(
-                        entity = PickingItems.class,
-                        parentColumns = "id",
-                        childColumns = "deviceId",
-                        onUpdate = ForeignKey.CASCADE,
-                        onDelete = ForeignKey.CASCADE
                 )
         },
         indices = {
                 @Index(value = {"deviceTypeId"}),
                 @Index(value = {"storageId"}),
-                @Index(value = {"userId"}),
-                @Index(value = {"deviceId"})
+                @Index(value = {"userId"})
         }
 )
 public class Devices {
@@ -57,7 +50,10 @@ public class Devices {
     @NonNull private String deviceName;
     private String comments;
     private boolean active;
-    private long userId;
+
+    @Nullable
+    private Integer userId;
+
     private String storageId;
     @NonNull private int loginMode;
     private long lastUserId;
@@ -115,11 +111,11 @@ public class Devices {
         this.active = active;
     }
 
-    public long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

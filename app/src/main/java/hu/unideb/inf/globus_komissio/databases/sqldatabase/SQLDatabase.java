@@ -266,7 +266,7 @@ public class SQLDatabase implements Communicator{
 
                 devicesList = new ArrayList<>();
 
-                query = "SELECT [Id], [DeviceId], [DeviceTypeId], [DeviceName], [Comments], [Active], [UserId], [StorageId], [LoginMode], [LastUserId], [LastUserLogin], [IPAddress], [Port], [ProgramType], [Flag] FROM Devices";
+                query = "SELECT [Id], [DeviceId], [DeviceTypeId], [DeviceName], [Comments], [Active], Convert(varchar,[UserId]), [StorageId], [LoginMode], [LastUserId], [LastUserLogin], [IPAddress], [Port], [ProgramType], [Flag] FROM Devices";
 
                 stmt = connection.createStatement();
                 rs = stmt.executeQuery(query);
@@ -281,7 +281,7 @@ public class SQLDatabase implements Communicator{
                     devices.setDeviceName(rs.getString(4));
                     devices.setComments(rs.getString(5));
                     devices.setActive(rs.getBoolean(6));
-                    devices.setUserId(rs.getLong(7));
+                    devices.setUserId((rs.getString(7) == null) ? null : Integer.valueOf(rs.getString(7)));
                     devices.setStorageId(rs.getString(8));
                     devices.setLoginMode(rs.getInt(9));
                     devices.setLastUserId(rs.getInt(10));
