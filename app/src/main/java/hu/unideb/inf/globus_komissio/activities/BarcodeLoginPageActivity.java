@@ -29,11 +29,12 @@ public class BarcodeLoginPageActivity extends AppCompatActivity implements ILogi
         setContentView(R.layout.activity_barcode_login_page);
         initUiElements();
 
+        //editText.setShowSoftInputOnFocus(true);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.showSoftInput(editText.getRootView(), InputMethodManager.SHOW_FORCED);
+        inputMethodManager.showSoftInput(editText.getRootView(), InputMethodManager.SHOW_IMPLICIT);
         editText.requestFocus();
-        editText.setShowSoftInputOnFocus(true);
 
 
         editText.addTextChangedListener(new TextWatcher() {
