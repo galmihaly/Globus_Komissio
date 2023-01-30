@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -35,6 +36,6 @@ public interface PickingItemsDAO {
                         String comments, String barcode) throws Exception;
 
 
-    @Insert
-    void setPickingItem(PickingItems pickingItem) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setPickingItem(List<PickingItems> pickingItem) throws Exception;
 }

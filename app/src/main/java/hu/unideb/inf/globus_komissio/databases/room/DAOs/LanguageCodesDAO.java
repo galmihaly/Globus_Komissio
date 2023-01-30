@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface LanguageCodesDAO {
     @Query("UPDATE LanguageCodes SET name= :name, ISO= :ISO WHERE id = :id")
     void updateLanguageCode(String id, String name, String ISO) throws Exception;
 
-    @Insert
-    void setDeviceType(LanguageCodes languageCode) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setDeviceType(List<LanguageCodes> languageCode) throws Exception;
 }

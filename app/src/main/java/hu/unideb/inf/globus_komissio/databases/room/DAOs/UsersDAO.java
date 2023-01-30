@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -31,6 +32,6 @@ public interface UsersDAO {
                      String lastTransferAction, int transferFlag, String mobileFlexPassword,
                      String mobileFlexPin, boolean localUser) throws Exception;
 
-    @Insert
-    void setUser(Users user) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setUser(List<Users> user) throws Exception;
 }

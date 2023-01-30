@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("unchecked")
+
 public class CustomThreadPoolManager {
 
     private static final CustomThreadPoolManager sInstance;
@@ -32,13 +32,13 @@ public class CustomThreadPoolManager {
 
     static {
         KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
+        NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
         sInstance = new CustomThreadPoolManager();
     }
 
     private CustomThreadPoolManager() {
         mTaskQueue = new LinkedBlockingQueue<>();
         mRunningTaskList = new ArrayList<>();
-        NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
         mExecutorService = new ThreadPoolExecutor(NUMBER_OF_CORES, NUMBER_OF_CORES*2, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, mTaskQueue, new BackgroundThreadFactory());
     }
 
@@ -61,7 +61,7 @@ public class CustomThreadPoolManager {
             }
             mRunningTaskList.clear();
         }
-        sendResultToPresenter(Util.createMessage(Util.MESSAGE_ID, "All tasks in the thread pool are cancelled"));
+        sendResultToPresenter(Util.createMessage(Util.TASKS_CANCELLED, "Az összes feladat törölve lett a láncolt listából!"));
     }
 
     public void setPresenterCallback(PresenterThreadCallback presenterThreadCallback) {
@@ -85,7 +85,7 @@ public class CustomThreadPoolManager {
             thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
             thread.setUncaughtExceptionHandler(
-                    (thread1, ex) -> Log.e("Util.LOG_TAG", thread1.getName() + " encountered an error: " + ex.getMessage())
+                    (thread1, ex) -> Log.e("Util.LOG_TAG", thread1.getName() + " szál létrehozása során hiba keletkezett: " + ex.getMessage())
             );
             return thread;
         }

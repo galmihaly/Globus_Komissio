@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface ArticleTypesDAO {
     @Query("UPDATE ArticleTypes SET name= :name, comments= :commnents WHERE id = :id")
     void updateArticleTypes(String id, String name, String commnents) throws Exception;
 
-    @Insert
-    void setArticleTypes(ArticleTypes articleTypes) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setArticleTypes(List<ArticleTypes> articleTypes) throws Exception;
 }

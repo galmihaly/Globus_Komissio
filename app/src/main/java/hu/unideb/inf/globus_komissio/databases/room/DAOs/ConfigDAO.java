@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface ConfigDAO {
     @Query("UPDATE Config SET configName= :configName, configValue= :configValue, userId= :userId, comments= :comments WHERE id = :id")
     void updateConfig(long id, String configName, String configValue, long userId, String comments) throws Exception;
 
-    @Insert
-    void setConfig(Config config) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setConfig(List<Config> config) throws Exception;
 }

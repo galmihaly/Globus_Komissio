@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface VersionDAO {
     @Query("UPDATE Version SET dateCreate= :dateCreate, comments= :comments WHERE id = :id")
     void updateVersion(long id, String dateCreate, String comments) throws Exception;
 
-    @Insert
-    void setVersion(Version version) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setVersion(List<Version> version) throws Exception;
 
 }

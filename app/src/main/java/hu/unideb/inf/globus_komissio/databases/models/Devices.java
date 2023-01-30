@@ -30,13 +30,20 @@ import java.sql.Date;
                         childColumns = "userId",
                         onUpdate = ForeignKey.CASCADE,
                         onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = PickingItems.class,
+                        parentColumns = "id",
+                        childColumns = "deviceId",
+                        onUpdate = ForeignKey.CASCADE,
+                        onDelete = ForeignKey.CASCADE
                 )
         },
         indices = {
                 @Index(value = {"deviceTypeId"}),
                 @Index(value = {"storageId"}),
-                @Index(value = {"userId"})
-
+                @Index(value = {"userId"}),
+                @Index(value = {"deviceId"})
         }
 )
 public class Devices {

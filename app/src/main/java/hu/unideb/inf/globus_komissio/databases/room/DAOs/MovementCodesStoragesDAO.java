@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -19,6 +20,6 @@ public interface MovementCodesStoragesDAO {
     @Query("UPDATE MovementCodeStorages SET storageId= :storageId, rightIn= :rightIn, rightOut= :rightOut WHERE movementCodeId = :movementCodeId")
     void updateMovementCodeStorages(long movementCodeId, String storageId, boolean rightIn, boolean rightOut) throws Exception;
 
-    @Insert
-    void setMovementCodeStorage(MovementCodeStorages movementCodeStorage) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setMovementCodeStorage(List<MovementCodeStorages> movementCodeStorage) throws Exception;
 }

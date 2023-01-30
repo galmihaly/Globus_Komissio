@@ -4,17 +4,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.FutureTask;
 
+import hu.unideb.inf.globus_komissio.LoggerElements.ApplicationLogger;
+import hu.unideb.inf.globus_komissio.LoggerElements.LogLevel;
+import hu.unideb.inf.globus_komissio.Enums.UiElementsEnums;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityPresenter;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityView;
-import hu.unideb.inf.globus_komissio.databases.room.Room;
-import hu.unideb.inf.globus_komissio.tasksmanager.CustomCallable;
-import hu.unideb.inf.globus_komissio.tasksmanager.CustomHandlerThread;
+import hu.unideb.inf.globus_komissio.tasks.ProcessBaseDatas;
+import hu.unideb.inf.globus_komissio.tasks.ProcessMasterDatas;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;
 import hu.unideb.inf.globus_komissio.tasksmanager.PresenterThreadCallback;
 import hu.unideb.inf.globus_komissio.tasksmanager.Util;
@@ -22,14 +21,6 @@ import hu.unideb.inf.globus_komissio.tasksmanager.Util;
 public class MainActivityPresenter implements IMainActivityPresenter, PresenterThreadCallback {
 
     private IMainActivityView iMainActivityView;
-
-    private ExecutorService executor = null;
-    private FutureTask<String> futureTask1 = null;
-    private FutureTask<String> futureTask2 = null;
-    private boolean isNotDone = true;
-    private Room room;
-
-    private CustomHandlerThread mHandlerThread;
     private CustomThreadPoolManager mCustomThreadPoolManager;
     private UiHandler mUiHandler;
 
@@ -38,98 +29,63 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
     }
 
     @Override
-    public void getDatas() {
+    public void startProgramProcesses() {
+
         initTaskManager();
-        method2();
-        //work1(this::initTaskManager, this::method2);
+        initBaseProcess();
     }
 
+    @Override
     public void initTaskManager(){
-        mUiHandler = new UiHandler(Looper.myLooper(), iMainActivityView);
+        try {
+            iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_1);
+            ApplicationLogger.logging(LogLevel.INFORMATION, "A feladatkezelő létrehozása megkezdődött.");
 
-        mHandlerThread = new CustomHandlerThread("HandlerThread");
-        mHandlerThread.setPresenterCallback(this);
-        mHandlerThread.start();
+            mUiHandler = new UiHandler(Looper.myLooper(), iMainActivityView, this);
+            mCustomThreadPoolManager = CustomThreadPoolManager.getsInstance();
+            mCustomThreadPoolManager.setPresenterCallback(this);
 
-        mCustomThreadPoolManager = CustomThreadPoolManager.getsInstance();
-        mCustomThreadPoolManager.setPresenterCallback(this);
+            iMainActivityView.settingUiElementsVisibility(UiElementsEnums.READY_STATE_1);
+            ApplicationLogger.logging(LogLevel.INFORMATION, "A feladatkezelő létrehozása befejeződött.");
+        }
+        catch (Exception e){
+            ApplicationLogger.logging(LogLevel.FATAL, e.getMessage());
+        }
     }
 
-    /*protected void method1(){
-        Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
-        List<User> userList = repository.Communicator.getAllUserData();
+    @Override
+    public void initBaseProcess(){
+        try {
+            iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_2);
+            ApplicationLogger.logging(LogLevel.INFORMATION, "Az alap folyamat inicializálása elkezdődött.");
 
-        for (int i = 0; i < userList.size(); i++) {
-            Log.e(String.valueOf(i), String.valueOf(userList.get(i)));
+            ProcessBaseDatas callable = new ProcessBaseDatas();
+            callable.setCustomThreadPoolManager(mCustomThreadPoolManager);
+            mCustomThreadPoolManager.addCallableMethod(callable);
+
+            ApplicationLogger.logging(LogLevel.INFORMATION, "Az alap folyamat inicializálása befejeződött.");
         }
-
-        Log.e("", "-----------------------------------------------------------------------");
-
-        List<Card> cardList = repository.Communicator.getAllCardData();
-
-        for (int i = 0; i < cardList.size(); i++) {
-            Log.e(String.valueOf(i), String.valueOf(cardList.get(i)));
+        catch (Exception e){
+            ApplicationLogger.logging(LogLevel.FATAL, e.getMessage());
         }
+    }
 
-        Log.e("", "-----------------------------------------------------------------------");
+    @Override
+    public void initMasterDataProcess() {
+        try {
+            iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_3);
+            ApplicationLogger.logging(LogLevel.INFORMATION, "Az törzsadat folyamat inicializálása elkezdődött.");
 
-        List<UserCard> userCardList = repository.Communicator.getAllUserCardsData();
+            ProcessMasterDatas callable = new ProcessMasterDatas();
+            callable.setCustomThreadPoolManager(mCustomThreadPoolManager);
+            mCustomThreadPoolManager.addCallableMethod(callable);
 
-        for (int i = 0; i < userCardList.size(); i++) {
-            Log.e(String.valueOf(i), String.valueOf(userCardList.get(i)));
+            ApplicationLogger.logging(LogLevel.INFORMATION, "Az törzsadat folyamat inicializálása befejeződött.");
         }
-
-        room = Room.getInstance();
-
-        if(room != null){
-            try {
-                room.usersDAO().insertAllUser(userList);
-                room.cardsDAO().insertAllCard(cardList);
-                room.userCardDAO().truncateUserCardTable();
-                room.userCardDAO().insertAllUserCard(userCardList);
-
-                List<User> list1 = room.usersDAO().getAllUser();
-                List<Card> list2 = room.cardsDAO().getAllCard();
-                List<UserAndUserCard> list3 = room.usersDAO().getAllUserWithUserCard();
-                List<Card> list4 = room.cardsDAO().getAllCardWithUserCard();
-                List<UserCard> list5 = room.userCardDAO().getAllUserCards();
-
-                for (int i = 0; i < list1.size(); i++) {
-                    Log.i( String.valueOf(i), String.valueOf(list1.get(i).toString()));
-                }
-                Log.i("", "-----------------------------------------------------------------");
-                for (int i = 0; i < list2.size(); i++) {
-                    Log.i( String.valueOf(i), String.valueOf(list2.get(i).toString()));
-                }
-                Log.i("", "-----------------------------------------------------------------");
-                for (int i = 0; i < list5.size(); i++) {
-                    Log.i( String.valueOf(i), String.valueOf(list5.get(i).toString()));
-                }
-                Log.i("", "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                Log.i("", String.valueOf(list3.size()));
-                for (int i = 0; i < list3.size(); i++) {
-                    Log.i( String.valueOf(i), String.valueOf(list3.get(i).toString()));
-                }
-                Log.i("", "-----------------------------------------------------------------");
-                Log.i("", String.valueOf(list4.size()));
-                for (int i = 0; i < list4.size(); i++) {
-                    if(list4.get(i) != null){
-                        Log.i( String.valueOf(i), String.valueOf(list4.get(i).toString()));
-                    }
-                    else
-                        Log.i( String.valueOf(i), String.valueOf(list4.get(i)));
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        catch (Exception e){
+            e.printStackTrace();
+            ApplicationLogger.logging(LogLevel.FATAL, e.getMessage());
         }
-    }*/
-
-    public void method2(){
-        CustomCallable callable = new CustomCallable();
-        callable.setCustomThreadPoolManager(mCustomThreadPoolManager);
-        mCustomThreadPoolManager.addCallableMethod(callable);
     }
 
 
@@ -143,23 +99,37 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
     private static class UiHandler extends Handler {
 
         private WeakReference<IMainActivityView> iMainActivityViewWeakReference;
+        private WeakReference<IMainActivityPresenter> iMainActivityPresenterWeakReference;
 
-        public UiHandler(Looper looper, IMainActivityView iMainActivityView) {
+        public UiHandler(Looper looper, IMainActivityView iMainActivityView, IMainActivityPresenter iMainActivityPresenter) {
             super(looper);
             this.iMainActivityViewWeakReference = new WeakReference<>(iMainActivityView);
+            this.iMainActivityPresenterWeakReference = new WeakReference<>(iMainActivityPresenter);
         }
 
-        // This method will run on UI thread
+        // Ui-ra szánt üzenetet kezelejük itt
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+
             switch (msg.what){
-                case Util.MESSAGE_ID:
-                    Bundle bundle = msg.getData();
-                    String messsageText = bundle.getString(Util.MESSAGE_BODY, Util.EMPTY_MESSAGE);
-                    Log.e("", messsageText);
-                    String bundle1 = (String) msg.obj;
-                    iMainActivityViewWeakReference.get().refreshUiWithObject(msg.obj);
+                case Util.PROCESS_FINISH_1:{
+                    iMainActivityViewWeakReference.get().settingUiElementsVisibility(UiElementsEnums.READY_STATE_2);
+                    iMainActivityPresenterWeakReference.get().initMasterDataProcess();
+                    break;
+                }
+                case Util.PROCESS_FINISH_2:{
+                    iMainActivityViewWeakReference.get().settingUiElementsVisibility(UiElementsEnums.READY_STATE_3);
+                    break;
+                }
+                case Util.ROOM_SEND_FAIL:{
+                    iMainActivityViewWeakReference.get().refreshUiWithMessage("Hiba történt a lokális adatbázis feltöltése során!");
+                    break;
+                }
+                case Util.ROOM_CREATE_FAIL:{
+                    iMainActivityViewWeakReference.get().refreshUiWithMessage("Hiba történt a lokális adatbázis létrehozása során!");
+                    break;
+                }
                 default:
                     break;
             }

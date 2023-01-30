@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -29,6 +30,6 @@ public interface StoragesDAO {
                         String lastTransferAction, int transferFlag, boolean pickingSource, boolean pickingTarget,
                         long receiverUserId, float permanent, long storageTypeId, String parentId) throws Exception;
 
-    @Insert
-    void setStorage(Storages logClass) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setStorage(List<Storages> logClass) throws Exception;
 }

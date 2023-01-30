@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface LogTypesDAO {
     @Query("UPDATE LogClasses SET name= :name, description= :description WHERE id = :id")
     void updateLogTypes(long id, String name, String description) throws Exception;
 
-    @Insert
-    void setLogType(LogTypes logTypes) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setLogType(List<LogTypes> logTypes) throws Exception;
 }

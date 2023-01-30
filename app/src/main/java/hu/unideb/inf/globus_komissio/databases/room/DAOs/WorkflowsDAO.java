@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface WorkflowsDAO {
                          boolean active, String dateCreate, String dateMod,
                          String lastTransferDate, String lastTransferAction, int transferFlag) throws Exception;
 
-    @Insert
-    void setWorkflow(Workflows logClass) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setWorkflow(List<Workflows> logClass) throws Exception;
 
 }

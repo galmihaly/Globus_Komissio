@@ -3,6 +3,7 @@ package hu.unideb.inf.globus_komissio.databases.room.DAOs;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface RightsDAO {
     @Query("UPDATE Rights SET name= :name, description= :description WHERE id = :id")
     void updateRights(long id, String name, String description) throws Exception;
 
-    @Insert
-    void setRight(Rights right) throws Exception;
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void setRight(List<Rights> right) throws Exception;
 }

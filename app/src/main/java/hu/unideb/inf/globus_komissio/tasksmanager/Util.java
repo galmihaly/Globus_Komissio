@@ -9,9 +9,13 @@ import java.util.Date;
 
 public class Util {
     public static final String LOG_TAG = "BackgroundThread";
-    public static final int MESSAGE_ID = 1;
+    public static final int TASKS_CANCELLED = 1;
+    public static final int ROOM_CREATE_FAIL = 2;
+    public static final int PROCESS_FINISH_1 = 3;
+    public static final int ROOM_SEND_FAIL = 4;
+    public static final int SQL_READ_FAIL = 5;
+    public static final int PROCESS_FINISH_2 = 6;
     public static final String MESSAGE_BODY = "MESSAGE_BODY";
-    public static final String EMPTY_MESSAGE = "<EMPTY_MESSAGE>";
 
     public static String getReadableTime() {
         @SuppressLint("SimpleDateFormat")
