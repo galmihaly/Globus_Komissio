@@ -22,11 +22,4 @@
         <item name="android:indeterminateDrawable">@drawable/circle</item>
         <item name="android:indeterminateDuration">2000</item>
     </style>
-    <style name="Theme.Globus_Komissio.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <style name="Theme.Globus_Komissio.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.Globus_Komissio.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
