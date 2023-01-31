@@ -1,6 +1,5 @@
 package hu.unideb.inf.globus_komissio.activities.presenters;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -24,7 +23,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
 
     private IMainActivityView iMainActivityView;
     private CustomThreadPoolManager mCustomThreadPoolManager;
-    private MainActivityPresenter.UiHandler mUiHandler;
+    private MainActivityHandler mMainActivityHandler;
 
     public MainActivityPresenter(IMainActivityView iMainActivityView) {
         this.iMainActivityView = iMainActivityView;
@@ -43,7 +42,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
             iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_1);
             ApplicationLogger.logging(LogLevel.INFORMATION, "A feladatkezelő létrehozása megkezdődött.");
 
-            mUiHandler = new UiHandler(Looper.myLooper(), iMainActivityView, this);
+            mMainActivityHandler = new MainActivityHandler(Looper.myLooper(), this);
             mCustomThreadPoolManager = CustomThreadPoolManager.getsInstance();
             mCustomThreadPoolManager.setPresenterCallback(this);
 
@@ -108,22 +107,35 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
         }
     }
 
+    @Override
+    public void sendUiEnumToPresenter(UiElementsEnums uiElementsEnums) {
+        iMainActivityView.settingUiElementsVisibility(uiElementsEnums);
+    }
+
+    @Override
+    public void sendUiMessageToPresenter(String message) {
+        iMainActivityView.refreshUiWithMessage(message);
+    }
+
+    @Override
+    public void sendLoadPageEnum(PageEnums pageEnums) {
+        iMainActivityView.loadOtherActivityPages(pageEnums);
+    }
 
     @Override
     public void sendResultToPresenter(Message message) {
-        if(mUiHandler == null) return;
-        mUiHandler.sendMessage(message);
+        if(mMainActivityHandler == null) return;
+        mMainActivityHandler.sendMessage(message);
     }
 
 
-    private static class UiHandler extends Handler {
+    private static class MainActivityHandler extends Handler {
 
-        private WeakReference<IMainActivityView> iMainActivityViewWeakReference;
+
         private WeakReference<IMainActivityPresenter> iMainActivityPresenterWeakReference;
 
-        public UiHandler(Looper looper, IMainActivityView iMainActivityView, IMainActivityPresenter iMainActivityPresenter) {
+        public MainActivityHandler(Looper looper, IMainActivityPresenter iMainActivityPresenter) {
             super(looper);
-            this.iMainActivityViewWeakReference = new WeakReference<>(iMainActivityView);
             this.iMainActivityPresenterWeakReference = new WeakReference<>(iMainActivityPresenter);
         }
 
@@ -134,26 +146,26 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
 
             switch (msg.what){
                 case Util.PROCESS_FINISH_1:{
-                    iMainActivityViewWeakReference.get().settingUiElementsVisibility(UiElementsEnums.READY_STATE_2);
+                    iMainActivityPresenterWeakReference.get().sendUiEnumToPresenter(UiElementsEnums.READY_STATE_2);
                     iMainActivityPresenterWeakReference.get().initMasterDataProcess();
                     break;
                 }
                 case Util.PROCESS_FINISH_2:{
-                    iMainActivityViewWeakReference.get().settingUiElementsVisibility(UiElementsEnums.READY_STATE_3);
+                    iMainActivityPresenterWeakReference.get().sendUiEnumToPresenter(UiElementsEnums.READY_STATE_3);
                     iMainActivityPresenterWeakReference.get().initFinishProcess();
                     break;
                 }
                 case Util.PROCESS_FINISH_3:{
-                    iMainActivityViewWeakReference.get().settingUiElementsVisibility(UiElementsEnums.READY_STATE_4);
-                    iMainActivityViewWeakReference.get().loadOtherActivityPages(PageEnums.BARCODE_LOGINPAGE_ACTIVITY);
+                    iMainActivityPresenterWeakReference.get().sendUiEnumToPresenter(UiElementsEnums.READY_STATE_4);
+                    iMainActivityPresenterWeakReference.get().sendLoadPageEnum(PageEnums.BARCODE_LOGINPAGE_ACTIVITY);
                     break;
                 }
                 case Util.ROOM_SEND_FAIL:{
-                    iMainActivityViewWeakReference.get().refreshUiWithMessage("Hiba történt a lokális adatbázis feltöltése során!");
+                    iMainActivityPresenterWeakReference.get().sendUiMessageToPresenter("Hiba történt a lokális adatbázis feltöltése során!");
                     break;
                 }
                 case Util.ROOM_CREATE_FAIL:{
-                    iMainActivityViewWeakReference.get().refreshUiWithMessage("Hiba történt a lokális adatbázis létrehozása során!");
+                    iMainActivityPresenterWeakReference.get().sendUiMessageToPresenter("Hiba történt a lokális adatbázis létrehozása során!");
                     break;
                 }
                 default:

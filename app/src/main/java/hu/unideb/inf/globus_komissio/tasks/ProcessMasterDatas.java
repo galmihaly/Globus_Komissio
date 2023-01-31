@@ -56,11 +56,11 @@ public class ProcessMasterDatas implements Callable {
         try {
             if (Thread.interrupted()) throw new InterruptedException();
 
-            getSQLTablesToLists();
+            boolean s = getSQLTablesToLists();
 
             room = Room.getInstance();
             if(room != null){
-                sendSQLTablesToROOM();
+                if(s) sendSQLTablesToROOM();
             }
             else {
                 ApplicationLogger.logging(LogLevel.FATAL, "A ROOM adatbázis nem jött létre a program indulásakor.");
@@ -79,7 +79,7 @@ public class ProcessMasterDatas implements Callable {
         return null;
     }
 
-    private void getSQLTablesToLists(){
+    private boolean getSQLTablesToLists(){
         try {
             Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
 
@@ -106,6 +106,8 @@ public class ProcessMasterDatas implements Callable {
                 ctpmw.get().sendResultToPresenter(message);
             }
         }
+
+        return true;
     }
 
     private void sendSQLTablesToROOM(){

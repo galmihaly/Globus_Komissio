@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 
+import hu.unideb.inf.globus_komissio.Enums.PageEnums;
 import hu.unideb.inf.globus_komissio.LoggerElements.ApplicationLogger;
 import hu.unideb.inf.globus_komissio.LoggerElements.LogLevel;
 import hu.unideb.inf.globus_komissio.activities.interfaces.ILoginPageActivityPresenter;
@@ -42,6 +43,11 @@ public class LoginPageActivityPresenter implements ILoginPageActivityPresenter, 
         catch (Exception e){
             ApplicationLogger.logging(LogLevel.FATAL, e.getMessage());
         }
+    }
+
+    @Override
+    public void loadPage(PageEnums pageEnums) {
+        iLoginPageActivityView.loadOtherActivityPages(pageEnums);
     }
 
     @Override

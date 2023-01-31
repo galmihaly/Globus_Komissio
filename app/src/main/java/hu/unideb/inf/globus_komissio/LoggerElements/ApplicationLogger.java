@@ -19,122 +19,178 @@ public class ApplicationLogger {
         MethodCallCounter.add();
 
         switch (logLevel){
-            case DEBUG: myLogObjects.add(ApplicationLogger.debug(message));
-            case ERROR: myLogObjects.add(ApplicationLogger.error(message));
-            case FATAL: myLogObjects.add(ApplicationLogger.fatal(message));
-            case TRACE: myLogObjects.add(ApplicationLogger.trace(message));
-            case WARNING: myLogObjects.add(ApplicationLogger.warning(message));
-            case INFORMATION: myLogObjects.add(ApplicationLogger.info(message));
+            case DEBUG: ApplicationLogger.debug(message); break;
+            case ERROR: ApplicationLogger.error(message); break;
+            case FATAL: ApplicationLogger.fatal(message); break;
+            case TRACE: ApplicationLogger.trace(message); break;
+            case WARNING: ApplicationLogger.warning(message); break;
+            case INFORMATION: ApplicationLogger.info(message); break;
             default:
+                break;
         }
     }
 
-    private static LogObject debug(String debugMessage){
-        MethodCallCounter.add();
+    private static void debug(String debugMessage){
+        try {
+            MethodCallCounter.add();
 
-        /*
-         - az aktuális Thread két függvényhívása miatt
-         - a Stack Trace e két fügvényhívás után áll össze, ezért a Stack Trace szintje ezek miatt nő 2-vel
-         */
-        MethodCallCounter.addNumber(2);
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
+            MethodCallCounter.addNumber(2);
+            StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
 
-        String zonedDateTime = getUTCDateTimeString();
-        LogObject logObject = new LogObject(LogLevel.DEBUG, stackTraceElement, zonedDateTime, debugMessage);
+            String zonedDateTime = getUTCDateTimeString();
+            LogObject logObject = new LogObject(LogLevel.DEBUG, stackTraceElement, zonedDateTime, debugMessage);
 
-        if(BuildConfig.DEBUG) Log.d(null, logObject.toString());
-        MethodCallCounter.clear();
+            if(BuildConfig.DEBUG) Log.d(null, logObject.toString());
+            MethodCallCounter.clear();
 
-        return logObject;
+            myLogObjects.add(logObject);
+        }
+        catch (ArrayIndexOutOfBoundsException aex){
+            aex.getStackTrace();
+        }
+        catch (SecurityException e){
+            //getStackTrace metódus exceptionje
+            e.getStackTrace();
+        }
     }
 
-    private static LogObject error(String errorMessage){
-        MethodCallCounter.add();
+    private static void error(String errorMessage){
+        try {
+            MethodCallCounter.add();
 
-        MethodCallCounter.addNumber(2);
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
+            MethodCallCounter.addNumber(2);
+            StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
 
-        String zonedDateTime = getUTCDateTimeString();
-        LogObject logObject = new LogObject(LogLevel.ERROR, stackTraceElement, zonedDateTime, errorMessage);
+            String zonedDateTime = getUTCDateTimeString();
+            LogObject logObject = new LogObject(LogLevel.ERROR, stackTraceElement, zonedDateTime, errorMessage);
 
+            if(BuildConfig.DEBUG) Log.e(null, logObject.toString());
+            MethodCallCounter.clear();
 
-        if(BuildConfig.DEBUG) Log.e(null, logObject.toString());
-        MethodCallCounter.clear();
-
-        return logObject;
+            myLogObjects.add(logObject);
+        }
+        catch (ArrayIndexOutOfBoundsException aex){
+            aex.getStackTrace();
+        }
+        catch (SecurityException e){
+            //getStackTrace metódus exceptionje
+            e.getStackTrace();
+        }
     }
 
-    private static LogObject fatal(String fatalMessage){
-        MethodCallCounter.add();
+    private static void fatal(String fatalMessage){
+        try {
+            MethodCallCounter.add();
 
-        MethodCallCounter.addNumber(2);
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
+            MethodCallCounter.addNumber(2);
+            StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
 
-        String zonedDateTime = getUTCDateTimeString();
-        LogObject logObject = new LogObject(LogLevel.FATAL, stackTraceElement, zonedDateTime, fatalMessage);
+            String zonedDateTime = getUTCDateTimeString();
+            LogObject logObject = new LogObject(LogLevel.FATAL, stackTraceElement, zonedDateTime, fatalMessage);
 
-        if(BuildConfig.DEBUG) Log.e(null, logObject.toString());
-        MethodCallCounter.clear();
+            if(BuildConfig.DEBUG) Log.e(null, logObject.toString());
+            MethodCallCounter.clear();
 
-        return logObject;
+            myLogObjects.add(logObject);
+        }
+        catch (ArrayIndexOutOfBoundsException aex){
+            aex.getStackTrace();
+        }
+        catch (SecurityException e){
+            //getStackTrace metódus exceptionje
+            e.getStackTrace();
+        }
     }
 
-    private static LogObject trace(String traceMessage){
-        MethodCallCounter.add();
+    private static void trace(String traceMessage){
+        try {
+            MethodCallCounter.add();
 
-        MethodCallCounter.addNumber(2);
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
+            MethodCallCounter.addNumber(2);
+            StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
 
-        String zonedDateTime = getUTCDateTimeString();
-        LogObject logObject = new LogObject(LogLevel.TRACE, stackTraceElement, zonedDateTime, traceMessage);
+            String zonedDateTime = getUTCDateTimeString();
+            LogObject logObject = new LogObject(LogLevel.TRACE, stackTraceElement, zonedDateTime, traceMessage);
 
-        if(BuildConfig.DEBUG) Log.i(null, logObject.toString());
-        MethodCallCounter.clear();
+            if(BuildConfig.DEBUG) Log.i(null, logObject.toString());
+            MethodCallCounter.clear();
 
-        return logObject;
+            myLogObjects.add(logObject);
+        }
+        catch (ArrayIndexOutOfBoundsException aex){
+            aex.getStackTrace();
+        }
+        catch (SecurityException e){
+            //getStackTrace metódus exceptionje
+            e.getStackTrace();
+        }
     }
 
-    private static LogObject warning(String warningMessage){
-        MethodCallCounter.add();
+    private static void warning(String warningMessage){
+        try {
+            MethodCallCounter.add();
 
-        MethodCallCounter.addNumber(2);
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
+            MethodCallCounter.addNumber(2);
+            StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
 
-        String zonedDateTime = getUTCDateTimeString();
-        LogObject logObject = new LogObject(LogLevel.WARNING, stackTraceElement, zonedDateTime, warningMessage);
+            String zonedDateTime = getUTCDateTimeString();
+            LogObject logObject = new LogObject(LogLevel.WARNING, stackTraceElement, zonedDateTime, warningMessage);
 
-        if(BuildConfig.DEBUG) Log.w(null, logObject.toString());
-        MethodCallCounter.clear();
+            if(BuildConfig.DEBUG) Log.w(null, logObject.toString());
+            MethodCallCounter.clear();
 
-        return logObject;
+            myLogObjects.add(logObject);
+        }
+        catch (ArrayIndexOutOfBoundsException aex){
+            aex.getStackTrace();
+        }
+        catch (SecurityException e){
+            //getStackTrace metódus exceptionje
+            e.getStackTrace();
+        }
     }
 
-    private static LogObject info(String infoMessage){
-        MethodCallCounter.add();
+    private static void info(String infoMessage){
 
-        /*
-         - az aktuális Thread két függvényhívása miatt
-         - a Stack Trace e két fügvényhívás után áll össze, ezért a Stack Trace szintje ezek miatt nő 2-vel
-         */
-        MethodCallCounter.addNumber(2);
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
+        try {
+            MethodCallCounter.add();
 
-        String zonedDateTime = getUTCDateTimeString();
-        LogObject logObject = new LogObject(LogLevel.INFORMATION, stackTraceElement, zonedDateTime, infoMessage);
+            MethodCallCounter.addNumber(2);
+            StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[MethodCallCounter.counter - 1];
 
-        if(BuildConfig.DEBUG) Log.i(null, logObject.toString());
-        MethodCallCounter.clear();
+            String zonedDateTime = getUTCDateTimeString();
+            LogObject logObject = new LogObject(LogLevel.INFORMATION, stackTraceElement, zonedDateTime, infoMessage);
 
-        return logObject;
+            if(BuildConfig.DEBUG) Log.i(null, logObject.toString());
+            MethodCallCounter.clear();
+
+            myLogObjects.add(logObject);
+
+        }
+        catch (ArrayIndexOutOfBoundsException aex){
+            aex.getStackTrace();
+        }
+        catch (SecurityException e){
+            //getStackTrace metódus exceptionje
+            e.getStackTrace();
+        }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private static String getUTCDateTimeString(){
-        Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        String result = null;
 
-        return df.format(date.getTimeInMillis()) + " " + date.getTimeZone().getID();
+        try {
+            Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            result = df.format(date.getTimeInMillis()) + " " + date.getTimeZone().getID();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(result == null) return null;
+        return result;
     }
-
 }
