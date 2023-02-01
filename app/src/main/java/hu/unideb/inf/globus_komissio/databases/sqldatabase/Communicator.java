@@ -33,6 +33,7 @@ public interface Communicator {
 
     void getConnection();
 
+    // alaplekérdezések
     List<Articles> getAllArticles();
     List<ArticleTypes> getAllArticleTypes();
     List<Config> getAllConfig();
@@ -60,5 +61,7 @@ public interface Communicator {
     List<Version> getAllVersion();
     List<Workflows> getAllWorkflows();
 
-
+    // speciális lekérdezések
+    boolean getLoggedUser(String barcode);
+    boolean getLoggedUserRights(int right);
 }

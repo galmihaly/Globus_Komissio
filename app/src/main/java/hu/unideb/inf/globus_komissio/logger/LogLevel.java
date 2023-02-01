@@ -1,4 +1,4 @@
-package hu.unideb.inf.globus_komissio.LoggerElements;
+package hu.unideb.inf.globus_komissio.logger;
 
 public enum LogLevel {
     FATAL,

@@ -6,31 +6,28 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import hu.unideb.inf.globus_komissio.LoggerElements.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.LoggerElements.LogLevel;
+import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
+import hu.unideb.inf.globus_komissio.logger.LogLevel;
 import hu.unideb.inf.globus_komissio.databases.models.ArticleTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Config;
 import hu.unideb.inf.globus_komissio.databases.models.DeviceTypes;
 import hu.unideb.inf.globus_komissio.databases.models.LogClasses;
 import hu.unideb.inf.globus_komissio.databases.models.LogTypes;
-import hu.unideb.inf.globus_komissio.databases.models.Logs;
 import hu.unideb.inf.globus_komissio.databases.models.MovementCodes;
 import hu.unideb.inf.globus_komissio.databases.models.PickingItemsLast;
 import hu.unideb.inf.globus_komissio.databases.models.PickingStatuses;
 import hu.unideb.inf.globus_komissio.databases.models.PrintTemplateTypes;
-import hu.unideb.inf.globus_komissio.databases.models.PrintTemplates;
 import hu.unideb.inf.globus_komissio.databases.models.Rights;
 import hu.unideb.inf.globus_komissio.databases.models.StorageTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Storages;
-import hu.unideb.inf.globus_komissio.databases.models.UserMovementCodes;
 import hu.unideb.inf.globus_komissio.databases.models.Users;
 import hu.unideb.inf.globus_komissio.databases.models.Version;
 import hu.unideb.inf.globus_komissio.databases.models.Workflows;
 import hu.unideb.inf.globus_komissio.databases.room.Room;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.CommunicatorTypeEnums;
+import hu.unideb.inf.globus_komissio.enums.CommunicatorTypeEnums;
 import hu.unideb.inf.globus_komissio.databases.sqldatabase.Repository;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;
-import hu.unideb.inf.globus_komissio.tasksmanager.Util;
+import hu.unideb.inf.globus_komissio.activities.utils.Util;
 
 public class ProcessBaseDatas implements Callable {
 
@@ -53,7 +50,6 @@ public class ProcessBaseDatas implements Callable {
     private List<LogClasses> logClassesList;
     private List<MovementCodes> movementCodesList;
     private List<ArticleTypes> articleTypesList;
-
 
 
     public void setCustomThreadPoolManager(CustomThreadPoolManager customThreadPoolManager) {
@@ -96,21 +92,21 @@ public class ProcessBaseDatas implements Callable {
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból megkezdődött.");
 
             // független táblák --------------------------------------------------------
-            configList = repository.Communicator.getAllConfig();
-            versionsList = repository.Communicator.getAllVersion();
-            storageTypesList = repository.Communicator.getAllStoragesTypes();
-            pickingItemsLastList = repository.Communicator.getAllPickingItemsLast();
-            workflowsList = repository.Communicator.getAllWorkflows();
-            usersList = repository.Communicator.getAllUsers();
-            rightsList = repository.Communicator.getAllRights();
-            storagesList = repository.Communicator.getAllStorages();
-            pickingStatusesList = repository.Communicator.getAllPickingStatuses();
-            deviceTypesList = repository.Communicator.getAllDeviceTypes();
-            printTemplateTypesList = repository.Communicator.getAllPrintTemplateTypes();
-            logTypesList = repository.Communicator.getAllLogTypes();
-            logClassesList = repository.Communicator.getAllLogClasses();
-            movementCodesList = repository.Communicator.getAllMovementCodes();
-            articleTypesList = repository.Communicator.getAllArticleTypes();
+            configList = repository.communicator.getAllConfig();
+            versionsList = repository.communicator.getAllVersion();
+            storageTypesList = repository.communicator.getAllStoragesTypes();
+            pickingItemsLastList = repository.communicator.getAllPickingItemsLast();
+            workflowsList = repository.communicator.getAllWorkflows();
+            usersList = repository.communicator.getAllUsers();
+            rightsList = repository.communicator.getAllRights();
+            storagesList = repository.communicator.getAllStorages();
+            pickingStatusesList = repository.communicator.getAllPickingStatuses();
+            deviceTypesList = repository.communicator.getAllDeviceTypes();
+            printTemplateTypesList = repository.communicator.getAllPrintTemplateTypes();
+            logTypesList = repository.communicator.getAllLogTypes();
+            logClassesList = repository.communicator.getAllLogClasses();
+            movementCodesList = repository.communicator.getAllMovementCodes();
+            articleTypesList = repository.communicator.getAllArticleTypes();
             //-----------------------------------------------------------------------------
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból befejeződött.");
@@ -151,7 +147,7 @@ public class ProcessBaseDatas implements Callable {
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
 
             if(ctpmw != null && ctpmw.get() != null) {
-                Message message = Util.createMessage(Util.PROCESS_FINISH_1, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
+                Message message = Util.createMessage(Util.PROGRAMSTART_FINISH_1, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
                 ctpmw.get().sendResultToPresenter(message);
             }
         }

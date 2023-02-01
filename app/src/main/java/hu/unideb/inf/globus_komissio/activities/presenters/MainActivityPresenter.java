@@ -1,37 +1,43 @@
 package hu.unideb.inf.globus_komissio.activities.presenters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
 import java.lang.ref.WeakReference;
 
-import hu.unideb.inf.globus_komissio.Enums.PageEnums;
-import hu.unideb.inf.globus_komissio.LoggerElements.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.LoggerElements.LogLevel;
-import hu.unideb.inf.globus_komissio.Enums.UiElementsEnums;
+import hu.unideb.inf.globus_komissio.enums.PageEnums;
+import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
+import hu.unideb.inf.globus_komissio.logger.LogLevel;
+import hu.unideb.inf.globus_komissio.enums.UiElementsEnums;
+import hu.unideb.inf.globus_komissio.activities.BarcodeLoginActivity;
+import hu.unideb.inf.globus_komissio.activities.PincodeLoginActivity;
+import hu.unideb.inf.globus_komissio.activities.UserPasswordLoginActivity;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityPresenter;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityView;
 import hu.unideb.inf.globus_komissio.tasks.ProcessBaseDatas;
-import hu.unideb.inf.globus_komissio.tasks.ProcessFinishTask;
+import hu.unideb.inf.globus_komissio.tasks.ProcessFinish;
 import hu.unideb.inf.globus_komissio.tasks.ProcessMasterDatas;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;
 import hu.unideb.inf.globus_komissio.tasksmanager.PresenterThreadCallback;
-import hu.unideb.inf.globus_komissio.tasksmanager.Util;
+import hu.unideb.inf.globus_komissio.activities.utils.Util;
 
 public class MainActivityPresenter implements IMainActivityPresenter, PresenterThreadCallback {
 
     private IMainActivityView iMainActivityView;
     private CustomThreadPoolManager mCustomThreadPoolManager;
     private MainActivityHandler mMainActivityHandler;
+    private Context context;
 
-    public MainActivityPresenter(IMainActivityView iMainActivityView) {
+    public MainActivityPresenter(IMainActivityView iMainActivityView, Context context) {
         this.iMainActivityView = iMainActivityView;
+        this.context = context;
     }
 
     @Override
     public void startProgramProcesses() {
-
         initTaskManager();
         initBaseProcess();
     }
@@ -95,7 +101,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
             iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_4);
             ApplicationLogger.logging(LogLevel.INFORMATION, "A befejezés folyamat inicializálása elkezdődött.");
 
-            ProcessFinishTask callable = new ProcessFinishTask();
+            ProcessFinish callable = new ProcessFinish();
             callable.setCustomThreadPoolManager(mCustomThreadPoolManager);
             mCustomThreadPoolManager.addCallableMethod(callable);
 
@@ -119,9 +125,34 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
 
     @Override
     public void sendLoadPageEnum(PageEnums pageEnums) {
-        iMainActivityView.loadOtherActivityPages(pageEnums);
+        switch (pageEnums){
+            case BARCODE_LOGINPAGE_ACTIVITY:{
+
+                Intent intent = new Intent(context, BarcodeLoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                iMainActivityView.loadOtherActivityPages(intent);
+                break;
+            }
+            case USERPASSWORD_LOGINPAGE_ACTIVITY:{
+
+                Intent intent = new Intent(context, UserPasswordLoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                iMainActivityView.loadOtherActivityPages(intent);
+                break;
+            }
+            case PINCODE_LOGINPAGE_ACTIVITY:{
+
+                Intent intent = new Intent(context, PincodeLoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                iMainActivityView.loadOtherActivityPages(intent);
+                break;
+            }
+            default:
+                break;
+        }
     }
 
+    //PresenterThreadCallback
     @Override
     public void sendResultToPresenter(Message message) {
         if(mMainActivityHandler == null) return;
@@ -145,19 +176,19 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
             super.handleMessage(msg);
 
             switch (msg.what){
-                case Util.PROCESS_FINISH_1:{
+                case Util.PROGRAMSTART_FINISH_1:{
                     iMainActivityPresenterWeakReference.get().sendUiEnumToPresenter(UiElementsEnums.READY_STATE_2);
                     iMainActivityPresenterWeakReference.get().initMasterDataProcess();
                     break;
                 }
-                case Util.PROCESS_FINISH_2:{
+                case Util.PROGRAMSTART_FINISH_2:{
                     iMainActivityPresenterWeakReference.get().sendUiEnumToPresenter(UiElementsEnums.READY_STATE_3);
                     iMainActivityPresenterWeakReference.get().initFinishProcess();
                     break;
                 }
-                case Util.PROCESS_FINISH_3:{
+                case Util.PROGRAMSATRT_FINISH_3:{
                     iMainActivityPresenterWeakReference.get().sendUiEnumToPresenter(UiElementsEnums.READY_STATE_4);
-                    iMainActivityPresenterWeakReference.get().sendLoadPageEnum(PageEnums.BARCODE_LOGINPAGE_ACTIVITY);
+                    iMainActivityPresenterWeakReference.get().sendLoadPageEnum(PageEnums.PINCODE_LOGINPAGE_ACTIVITY);
                     break;
                 }
                 case Util.ROOM_SEND_FAIL:{

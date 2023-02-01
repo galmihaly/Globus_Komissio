@@ -16,6 +16,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import hu.unideb.inf.globus_komissio.activities.utils.Util;
+
 
 public class CustomThreadPoolManager {
 

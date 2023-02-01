@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import hu.unideb.inf.globus_komissio.databases.models.Articles;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.CommunicatorTypeEnums;
+import hu.unideb.inf.globus_komissio.enums.CommunicatorTypeEnums;
 import hu.unideb.inf.globus_komissio.databases.sqldatabase.Repository;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.User;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;
-import hu.unideb.inf.globus_komissio.tasksmanager.Util;
+import hu.unideb.inf.globus_komissio.activities.utils.Util;
 
 public class CustomCallable implements Callable {
 
@@ -29,7 +28,7 @@ public class CustomCallable implements Callable {
             if (Thread.interrupted()) throw new InterruptedException();
 
             Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
-            List<Articles> articlesList = repository.Communicator.getAllArticles();
+            List<Articles> articlesList = repository.communicator.getAllArticles();
 
             Log.e("listaméret:", String.valueOf(articlesList.size()));
             for (int i = 0; i < articlesList.size(); i++) {
@@ -47,7 +46,7 @@ public class CustomCallable implements Callable {
         }
 
         Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
-        List<Articles> articlesList = repository.Communicator.getAllArticles();
+        List<Articles> articlesList = repository.communicator.getAllArticles();
 
         return null;
     }

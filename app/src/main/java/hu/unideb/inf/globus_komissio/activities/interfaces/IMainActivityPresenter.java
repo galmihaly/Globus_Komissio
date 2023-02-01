@@ -1,7 +1,7 @@
 package hu.unideb.inf.globus_komissio.activities.interfaces;
 
-import hu.unideb.inf.globus_komissio.Enums.PageEnums;
-import hu.unideb.inf.globus_komissio.Enums.UiElementsEnums;
+import hu.unideb.inf.globus_komissio.enums.PageEnums;
+import hu.unideb.inf.globus_komissio.enums.UiElementsEnums;
 
 public interface IMainActivityPresenter {
 

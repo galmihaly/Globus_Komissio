@@ -18,13 +18,15 @@
         android:theme="@style/Theme.Globus_Komissio"
         tools:targetApi="31">
         <activity
-            android:name=".activities.UserPasswordLoginPageActivity"
-            android:exported="false" />
+            android:name=".activities.UserPasswordLoginActivity"
+            android:exported="false"
+            android:launchMode="singleTop"/>
         <activity
-            android:name=".activities.NumericLoginPageActivity"
-            android:exported="false" />
+            android:name=".activities.PincodeLoginActivity"
+            android:exported="false"
+            android:launchMode="singleTop"/>
         <activity
-            android:name=".activities.BarcodeLoginPageActivity"
+            android:name=".activities.BarcodeLoginActivity"
             android:exported="false"
             android:launchMode="singleTop" />
         <activity

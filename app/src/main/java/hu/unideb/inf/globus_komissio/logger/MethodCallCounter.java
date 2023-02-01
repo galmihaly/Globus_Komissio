@@ -1,4 +1,4 @@
-package hu.unideb.inf.globus_komissio.LoggerElements;
+package hu.unideb.inf.globus_komissio.logger;
 
 /*
  - itt tároljuk a függvényhívások számát egy metódushívás során

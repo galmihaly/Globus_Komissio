@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.unideb.inf.globus_komissio.databases.localcontainers.LoggedUserContainer;
+import hu.unideb.inf.globus_komissio.databases.localcontainers.RightsContainer;
 import hu.unideb.inf.globus_komissio.databases.models.ArticleTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.models.Config;
@@ -38,7 +40,7 @@ import hu.unideb.inf.globus_komissio.databases.models.Users;
 import hu.unideb.inf.globus_komissio.databases.models.Version;
 import hu.unideb.inf.globus_komissio.databases.models.Workflows;
 
-public class SQLDatabase implements Communicator{
+public class SQLDatabaseQueries implements Communicator {
 
     private Connection connection;
     private String query;
@@ -1636,5 +1638,123 @@ public class SQLDatabase implements Communicator{
         }
 
         return workflowsList;
+    }
+
+    @Override
+    public boolean getLoggedUser(String barcode){
+        getConnection();
+
+        boolean isSuccess = false;
+        if(connection != null) {
+            try {
+
+                LoggedUserContainer loggedUserContainer = LoggedUserContainer.getsInstance();
+
+                query = "SELECT [Id], [Name], [Account], [Password], [Pin], [RFID], [Barcode], [Active] FROM MobileFlex.Users WHERE Barcode = '" + barcode + "'";
+
+                stmt = connection.createStatement();
+                rs = stmt.executeQuery(query);
+                size = 0;
+
+                while (rs.next()) {
+
+                    loggedUserContainer.setId(rs.getInt(1));
+                    loggedUserContainer.setAccount(rs.getString(2));
+                    loggedUserContainer.setName(rs.getString(3));
+                    loggedUserContainer.setPassword(rs.getString(4));
+                    loggedUserContainer.setPin(rs.getString(5));
+                    loggedUserContainer.setRfid(rs.getString(6));
+                    loggedUserContainer.setBarcode(rs.getString(7));
+                    loggedUserContainer.setActive(rs.getBoolean(8));
+
+                    size++;
+                }
+
+                if(size == 0) {
+                    Log.i("s", "Nincs bejelentkező személy!");
+                    isSuccess = false;
+                }
+                else{
+                    isSuccess = true;
+                }
+
+                rs.close();
+                stmt.close();
+            }
+            catch (SQLException e) {
+                Log.e("s", "Sikertelen olvasás az adatbázisból!!!");
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    Log.e("SQLException", "Az MSSql adatbázis kacsolatának felbontása sikertelen!");
+                }
+            }
+        }
+        else{
+            Log.i("s", "Nem alakult ki kapcsolat az adatbázis és az alkalmazás között!");
+        }
+
+        return isSuccess;
+    }
+
+    @Override
+    public boolean getLoggedUserRights(int right){
+        getConnection();
+
+        boolean isSuccess = false;
+        if(connection != null) {
+            try {
+
+                LoggedUserContainer loggedUserContainer = LoggedUserContainer.getsInstance();
+                List<RightsContainer> rights = new ArrayList<>();
+
+                query = "SELECT [Id], [Name] from MobileFlex.UserRights UR Join MobileFlex.Rights R On UR.RightId = R.Id where UR.UserId = '" + right + "'";
+
+                stmt = connection.createStatement();
+                rs = stmt.executeQuery(query);
+                size = 0;
+
+                while (rs.next()) {
+
+                    RightsContainer rightsContainer = new RightsContainer();
+                    rightsContainer.setId(rs.getInt(1));
+                    rightsContainer.setName(rs.getString(2));
+                    rights.add(rightsContainer);
+
+                    size++;
+                }
+
+                if(size == 0) {
+                    Log.i("s", "Nincs bejelentkező személy!");
+                    isSuccess = false;
+                }
+                else{
+                    loggedUserContainer.setRights(rights);
+                    isSuccess = true;
+                }
+
+                rs.close();
+                stmt.close();
+            }
+            catch (SQLException e) {
+                Log.e("s", "Sikertelen olvasás az adatbázisból!!!");
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    Log.e("SQLException", "Az MSSql adatbázis kacsolatának felbontása sikertelen!");
+                }
+            }
+        }
+        else{
+            Log.i("s", "Nem alakult ki kapcsolat az adatbázis és az alkalmazás között!");
+        }
+
+        return isSuccess;
     }
 }

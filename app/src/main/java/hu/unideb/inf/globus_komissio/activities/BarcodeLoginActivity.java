@@ -6,16 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import hu.unideb.inf.globus_komissio.Enums.PageEnums;
+import hu.unideb.inf.globus_komissio.enums.PageEnums;
 import hu.unideb.inf.globus_komissio.R;
-import hu.unideb.inf.globus_komissio.activities.interfaces.ILoginPageActivityView;
-import hu.unideb.inf.globus_komissio.activities.presenters.LoginPageActivityPresenter;
+import hu.unideb.inf.globus_komissio.activities.interfaces.ILoginActivityView;
+import hu.unideb.inf.globus_komissio.activities.presenters.LoginActivityPresenter;
 
-public class BarcodeLoginPageActivity extends AppCompatActivity implements ILoginPageActivityView {
+public class BarcodeLoginActivity extends AppCompatActivity implements ILoginActivityView {
 
     private Button readyButton3;
     private Button deleteButton3;
@@ -23,7 +25,6 @@ public class BarcodeLoginPageActivity extends AppCompatActivity implements ILogi
     // menü gombok
     private ImageButton userPasswordLoginButton3;
     private ImageButton numericPanelButton3;
-    private ImageButton barcodeButton3;
 
     private EditText barcodeTextBox;
 
@@ -31,11 +32,10 @@ public class BarcodeLoginPageActivity extends AppCompatActivity implements ILogi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_login_page);
+
         initUiElements();
 
-        //billentyűzet megjelenítés kell még ide (opcionális)
-
-        LoginPageActivityPresenter lpap = new LoginPageActivityPresenter(this);
+        LoginActivityPresenter laPresenter = new LoginActivityPresenter(this, getApplicationContext());
 
         barcodeTextBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,45 +69,26 @@ public class BarcodeLoginPageActivity extends AppCompatActivity implements ILogi
         });
 
         userPasswordLoginButton3.setOnClickListener(v -> {
-            lpap.loadPage(PageEnums.USERPASSWORD_LOGINPAGE_ACTIVITY);
+            laPresenter.sendPageEnumToPresenter(PageEnums.USERPASSWORD_LOGINPAGE_ACTIVITY);
         });
 
         numericPanelButton3.setOnClickListener(v -> {
-            Intent intent = new Intent(this, NumericLoginPageActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
+            laPresenter.sendPageEnumToPresenter(PageEnums.PINCODE_LOGINPAGE_ACTIVITY);
         });
 
+        readyButton3.setOnClickListener(v -> {
+            laPresenter.loginWithBarcode(barcodeTextBox.getText().toString());
+        });
     }
 
     @Override
-    public void loadOtherActivityPages(PageEnums pageEnums) {
+    public void loadOtherActivityPages(Intent intent) {
+        startActivity(intent);
+    }
 
-        switch (pageEnums){
-            case BARCODE_LOGINPAGE_ACTIVITY:{
-
-                Intent intent = new Intent(this, BarcodeLoginPageActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                break;
-            }
-            case USERPASSWORD_LOGINPAGE_ACTIVITY:{
-
-                Intent intent = new Intent(this, UserPasswordLoginPageActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                break;
-            }
-            case NUMERIC_LOGINPAGE_ACTIVITY:{
-
-                Intent intent = new Intent(this, NumericLoginPageActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                break;
-            }
-            default:
-                break;
-        }
+    @Override
+    public void sendStringToUiToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     private void initUiElements() {
@@ -124,6 +105,5 @@ public class BarcodeLoginPageActivity extends AppCompatActivity implements ILogi
 
         userPasswordLoginButton3 = findViewById(R.id.userPasswordLoginButton3);
         numericPanelButton3 = findViewById(R.id.numericPanelButton3);
-        barcodeButton3 = findViewById(R.id.barcodeButton3);
     }
 }

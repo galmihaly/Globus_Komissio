@@ -1,34 +1,26 @@
 package hu.unideb.inf.globus_komissio.tasks;
 
 import android.os.Message;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import hu.unideb.inf.globus_komissio.LoggerElements.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.LoggerElements.LogLevel;
+import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
+import hu.unideb.inf.globus_komissio.logger.LogLevel;
 import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.models.Devices;
-import hu.unideb.inf.globus_komissio.databases.models.Logs;
 import hu.unideb.inf.globus_komissio.databases.models.MovementCodeStorages;
 import hu.unideb.inf.globus_komissio.databases.models.PickingItems;
-import hu.unideb.inf.globus_komissio.databases.models.PickingItemsLast;
 import hu.unideb.inf.globus_komissio.databases.models.Pickings;
-import hu.unideb.inf.globus_komissio.databases.models.PrintTemplates;
-import hu.unideb.inf.globus_komissio.databases.models.Rights;
-import hu.unideb.inf.globus_komissio.databases.models.Storages;
 import hu.unideb.inf.globus_komissio.databases.models.UserArticleTypes;
 import hu.unideb.inf.globus_komissio.databases.models.UserMovementCodes;
 import hu.unideb.inf.globus_komissio.databases.models.UserRights;
-import hu.unideb.inf.globus_komissio.databases.models.Users;
-import hu.unideb.inf.globus_komissio.databases.models.Workflows;
 import hu.unideb.inf.globus_komissio.databases.room.Room;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.CommunicatorTypeEnums;
+import hu.unideb.inf.globus_komissio.enums.CommunicatorTypeEnums;
 import hu.unideb.inf.globus_komissio.databases.sqldatabase.Repository;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;
-import hu.unideb.inf.globus_komissio.tasksmanager.Util;
+import hu.unideb.inf.globus_komissio.activities.utils.Util;
 
 public class ProcessMasterDatas implements Callable {
 
@@ -43,8 +35,6 @@ public class ProcessMasterDatas implements Callable {
     private List<MovementCodeStorages> movementCodeStoragesList;
     private List<UserMovementCodes> userMovementCodesList;
     private List<Articles> articlesList;
-    private List<PrintTemplates> printTemplatesList;
-    private List<Logs> logsList;
 
     public void setCustomThreadPoolManager(CustomThreadPoolManager customThreadPoolManager) {
         this.ctpmw = new WeakReference<>(customThreadPoolManager);
@@ -85,14 +75,14 @@ public class ProcessMasterDatas implements Callable {
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból megkezdődött.");
 
-            userRightsList = repository.Communicator.getAllUserRights();
-            pickingsList = repository.Communicator.getAllPickings();
-            userArticleTypesList = repository.Communicator.getAllUserArticleTypes();
-            movementCodeStoragesList = repository.Communicator.getAllMovementCodeStorages();
-            userMovementCodesList = repository.Communicator.getAllUserMovementCodes();
-            articlesList = repository.Communicator.getAllArticles();
-            devicesList = repository.Communicator.getAllDevices();
-            pickingItemsList = repository.Communicator.getAllPickingItems();
+            userRightsList = repository.communicator.getAllUserRights();
+            pickingsList = repository.communicator.getAllPickings();
+            userArticleTypesList = repository.communicator.getAllUserArticleTypes();
+            movementCodeStoragesList = repository.communicator.getAllMovementCodeStorages();
+            userMovementCodesList = repository.communicator.getAllUserMovementCodes();
+            articlesList = repository.communicator.getAllArticles();
+            devicesList = repository.communicator.getAllDevices();
+            pickingItemsList = repository.communicator.getAllPickingItems();
 
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból befejeződött.");
         }
@@ -129,7 +119,7 @@ public class ProcessMasterDatas implements Callable {
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
 
             if(ctpmw != null && ctpmw.get() != null) {
-                Message message = Util.createMessage(Util.PROCESS_FINISH_2, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
+                Message message = Util.createMessage(Util.PROGRAMSTART_FINISH_2, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
                 ctpmw.get().sendResultToPresenter(message);
             }
         }

@@ -1,26 +1,20 @@
 package hu.unideb.inf.globus_komissio.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-import hu.unideb.inf.globus_komissio.Enums.PageEnums;
-import hu.unideb.inf.globus_komissio.Enums.UiElementsEnums;
+import hu.unideb.inf.globus_komissio.databases.localcontainers.LoggedUserContainer;
+import hu.unideb.inf.globus_komissio.enums.UiElementsEnums;
 import hu.unideb.inf.globus_komissio.activities.presenters.MainActivityPresenter;
-import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.room.Room;
-import hu.unideb.inf.globus_komissio.databases.sqldatabase.CommunicatorTypeEnums;
+import hu.unideb.inf.globus_komissio.enums.CommunicatorTypeEnums;
 import hu.unideb.inf.globus_komissio.databases.sqldatabase.Repository;
 import hu.unideb.inf.globus_komissio.R;
 import hu.unideb.inf.globus_komissio.activities.interfaces.IMainActivityView;
@@ -61,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         setContentView(R.layout.activity_programstart);
         initUiElements();
 
-        mainActivityPresenter = new MainActivityPresenter(this);
+        mainActivityPresenter = new MainActivityPresenter(this, getApplicationContext());
 
         Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
         Room room = Room.getDatabase(getApplicationContext());
@@ -145,12 +139,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     }
 
     @Override
-    public void loadOtherActivityPages(PageEnums pageEnums) {
-        if (pageEnums == PageEnums.BARCODE_LOGINPAGE_ACTIVITY) {
-            Intent intent = new Intent(this, BarcodeLoginPageActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
-        }
+    public void loadOtherActivityPages(Intent intent) {
+        startActivity(intent);
     }
 
     private void initUiElements() {

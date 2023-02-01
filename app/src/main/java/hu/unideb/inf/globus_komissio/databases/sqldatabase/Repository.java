@@ -1,18 +1,20 @@
 package hu.unideb.inf.globus_komissio.databases.sqldatabase;
 
+import hu.unideb.inf.globus_komissio.enums.CommunicatorTypeEnums;
+
 public class Repository {
 
     public CommunicatorTypeEnums CommunicatorTypes;
-    public Communicator Communicator;
+    public Communicator communicator;
 
     public Repository(CommunicatorTypeEnums enumType){
         this.CommunicatorTypes = enumType;
 
         if(enumType.equals(CommunicatorTypeEnums.MsSQLServer)){
-            this.Communicator = new SQLDatabase();
+            this.communicator = new SQLDatabaseQueries();
         }
         else {
-            this.Communicator = null;
+            this.communicator = null;
         }
     }
 }

@@ -12,6 +12,7 @@
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_login.xml" value="0.27853260869565216" />
         <entry key="..\:/Globus/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_programstart.xml" value="0.33" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/barcode_edittext_background.xml" value="0.2285" />
+        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/button_blue_background.xml" value="0.121" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/button_gray_background.xml" value="0.2285" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/button_red_background.xml" value="0.2285" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/drawable/circle.xml" value="0.2285" />
@@ -23,7 +24,7 @@
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_barcode_login_page.xml" value="0.2" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_main.xml" value="0.21965579710144928" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_name_password_login_page.xml" value="0.264" />
-        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_numeric_login_page.xml" value="0.6" />
+        <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_numeric_login_page.xml" value="0.4" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/activity_programstart.xml" value="0.21014492753623187" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_login.xml" value="0.21965579710144928" />
         <entry key="..\:/Munkahely/Globus_Komissio/Globus_Komissio/app/src/main/res/layout/fragment_programstart.xml" value="0.21965579710144928" />

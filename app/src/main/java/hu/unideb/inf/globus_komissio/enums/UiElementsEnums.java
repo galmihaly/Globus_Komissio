@@ -1,4 +1,4 @@
-package hu.unideb.inf.globus_komissio.Enums;
+package hu.unideb.inf.globus_komissio.enums;
 
 public enum UiElementsEnums {
 
