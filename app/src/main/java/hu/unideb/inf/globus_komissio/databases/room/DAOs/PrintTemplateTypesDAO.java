@@ -21,6 +21,6 @@ public interface PrintTemplateTypesDAO {
     @Query("UPDATE PrintTemplateTypes SET name= :name, comments= :comments WHERE id = :id")
     void updatePrintTemplateTypes(long id, String name, String comments) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setPrintTemplateType(List<PrintTemplateTypes> printTemplateType) throws Exception;
 }

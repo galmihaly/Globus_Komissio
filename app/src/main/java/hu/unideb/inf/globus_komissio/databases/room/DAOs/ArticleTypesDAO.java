@@ -21,6 +21,6 @@ public interface ArticleTypesDAO {
     @Query("UPDATE ArticleTypes SET name= :name, comments= :commnents WHERE id = :id")
     void updateArticleTypes(String id, String name, String commnents) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setArticleTypes(List<ArticleTypes> articleTypes) throws Exception;
 }

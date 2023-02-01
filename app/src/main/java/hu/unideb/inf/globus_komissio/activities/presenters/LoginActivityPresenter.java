@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
 import hu.unideb.inf.globus_komissio.enums.PageEnums;
 import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.logger.LogLevel;
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
 import hu.unideb.inf.globus_komissio.activities.BarcodeLoginActivity;
 import hu.unideb.inf.globus_komissio.activities.PincodeLoginActivity;
 import hu.unideb.inf.globus_komissio.activities.UserPasswordLoginActivity;

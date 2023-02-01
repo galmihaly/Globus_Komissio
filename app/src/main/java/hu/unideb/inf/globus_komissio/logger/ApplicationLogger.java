@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import hu.unideb.inf.globus_komissio.BuildConfig;
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
 
 public class ApplicationLogger {
 

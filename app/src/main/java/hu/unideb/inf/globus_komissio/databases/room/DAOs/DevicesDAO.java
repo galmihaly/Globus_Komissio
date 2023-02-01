@@ -26,6 +26,6 @@ public interface DevicesDAO {
                                         "programType= :programType, flag= :flag WHERE id = :id")
     void updateDevices(long id, String deviceId, long deviceTypeId, String deviceName, String comments, boolean active, long userId, String storageId, int loginMode, long lastUserId, String lastUserLogin, String ipAddress, int port, int programType, int flag) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setDevice(List<Devices> device) throws Exception;
 }

@@ -21,6 +21,6 @@ public interface UserArticleTypesDAO {
     @Query("UPDATE UserArticleTypes SET articleTypeId= :articleTypeId, grantor= :grantor, verify= :verify, rightIn= :rightIn, rightOut= :rightOut, userDefault= :userDefault WHERE userId = :userId")
     void updateUserArticleTypes(long userId, long articleTypeId, int grantor, String verify, boolean rightIn, boolean rightOut, boolean userDefault) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setUserArticleType(List<UserArticleTypes> userArticleType) throws Exception;
 }

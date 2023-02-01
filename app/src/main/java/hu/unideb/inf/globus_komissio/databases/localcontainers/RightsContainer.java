@@ -2,15 +2,15 @@ package hu.unideb.inf.globus_komissio.databases.localcontainers;
 
 public class RightsContainer {
 
-    private int id;
+    private long id;
     private String name;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int i) {
-        this.id = i;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

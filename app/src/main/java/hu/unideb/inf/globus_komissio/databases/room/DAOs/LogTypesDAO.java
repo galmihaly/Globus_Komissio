@@ -22,6 +22,6 @@ public interface LogTypesDAO {
     @Query("UPDATE LogClasses SET name= :name, description= :description WHERE id = :id")
     void updateLogTypes(long id, String name, String description) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setLogType(List<LogTypes> logTypes) throws Exception;
 }

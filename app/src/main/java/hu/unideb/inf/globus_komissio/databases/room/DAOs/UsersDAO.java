@@ -32,6 +32,14 @@ public interface UsersDAO {
                      String lastTransferAction, int transferFlag, String mobileFlexPassword,
                      String mobileFlexPin, boolean localUser) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setUser(List<Users> user) throws Exception;
+
+    // speciális lekérdezések
+
+    @Query("SELECT id, account, name, password, active, lastLogin, email, " +
+            "telephone, rfid, pin, barcode, internalId, userId, dateCreate, dateMod, " +
+            "lastTransferDate, lastTransferAction, transferFlag, mobileFlexPassword, mobileFlexPin, localUser FROM Users " +
+            "WHERE barcode= :barcode")
+    Users getLoggedUser(String barcode) throws Exception;
 }

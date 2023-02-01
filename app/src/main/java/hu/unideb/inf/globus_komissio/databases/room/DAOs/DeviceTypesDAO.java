@@ -21,6 +21,6 @@ public interface DeviceTypesDAO {
     @Query("UPDATE DeviceTypes SET name= :name, comments= :comments WHERE id = :id")
     void updateDeviceTypes(long id, String name, String comments) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setDeviceType(List<DeviceTypes> deviceType) throws Exception;
 }

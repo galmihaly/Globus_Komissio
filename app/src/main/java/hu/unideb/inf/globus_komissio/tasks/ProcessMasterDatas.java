@@ -1,13 +1,16 @@
 package hu.unideb.inf.globus_komissio.tasks;
 
+import android.content.Context;
 import android.os.Message;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import hu.unideb.inf.globus_komissio.databases.models.Logs;
+import hu.unideb.inf.globus_komissio.databases.models.PrintTemplates;
 import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.logger.LogLevel;
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
 import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.models.Devices;
 import hu.unideb.inf.globus_komissio.databases.models.MovementCodeStorages;
@@ -26,6 +29,7 @@ public class ProcessMasterDatas implements Callable {
 
     private WeakReference<CustomThreadPoolManager> ctpmw;
     private Room room;
+    private Context context;
 
     private List<UserRights> userRightsList;
     private List<Devices> devicesList;
@@ -35,6 +39,12 @@ public class ProcessMasterDatas implements Callable {
     private List<MovementCodeStorages> movementCodeStoragesList;
     private List<UserMovementCodes> userMovementCodesList;
     private List<Articles> articlesList;
+    private List<Logs> logsList;
+    private List<PrintTemplates> printTemplatesList;
+
+    public ProcessMasterDatas(Context context) {
+        this.context = context;
+    }
 
     public void setCustomThreadPoolManager(CustomThreadPoolManager customThreadPoolManager) {
         this.ctpmw = new WeakReference<>(customThreadPoolManager);
@@ -46,21 +56,31 @@ public class ProcessMasterDatas implements Callable {
         try {
             if (Thread.interrupted()) throw new InterruptedException();
 
-            boolean s = getSQLTablesToLists();
+            if(Util.isInternetConnection(context)){
+                getSQLTablesToLists();
 
-            room = Room.getInstance();
-            if(room != null){
-                if(s) sendSQLTablesToROOM();
+                room = Room.getInstance();
+                if(room != null){
+                    sendSQLTablesToROOM();
+                }
+                else {
+                    ApplicationLogger.logging(LogLevel.FATAL, "A ROOM adatbázis nem jött létre a program indulásakor.");
+
+                    Message message = Util.createMessage(Util.ROOM_CREATE_FAIL, "A ROOM adatbázis nem jött létre a program indulásakor.");
+                    if(ctpmw != null && ctpmw.get() != null) {
+                        ctpmw.get().sendResultToPresenter(message);
+                    }
+                }
             }
             else {
-                ApplicationLogger.logging(LogLevel.FATAL, "A ROOM adatbázis nem jött létre a program indulásakor.");
+                ApplicationLogger.logging(LogLevel.INFORMATION, "A függő adatok feltöltése ROOM adatbázisba befejeződött.");
 
-                //üzenet a MainActivityPresenter - nek
-                Message message = Util.createMessage(Util.ROOM_CREATE_FAIL, "A ROOM adatbázis nem jött létre a program indulásakor.");
                 if(ctpmw != null && ctpmw.get() != null) {
+                    Message message = Util.createMessage(Util.PROGRAMSTART_FINISH_2, "Az függő adatok feltöltése ROOM adatbázisba befejeződött.");
                     ctpmw.get().sendResultToPresenter(message);
                 }
             }
+
 
         } catch (InterruptedException e) {
             ApplicationLogger.logging(LogLevel.FATAL, "A processzor szál megszakadt.");
@@ -69,11 +89,11 @@ public class ProcessMasterDatas implements Callable {
         return null;
     }
 
-    private boolean getSQLTablesToLists(){
+    private void getSQLTablesToLists(){
         try {
             Repository repository = new Repository(CommunicatorTypeEnums.MsSQLServer);
 
-            ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból megkezdődött.");
+            ApplicationLogger.logging(LogLevel.INFORMATION, "A függő adatok letöltése SQL adatbázisból megkezdődött.");
 
             userRightsList = repository.communicator.getAllUserRights();
             pickingsList = repository.communicator.getAllPickings();
@@ -83,8 +103,10 @@ public class ProcessMasterDatas implements Callable {
             articlesList = repository.communicator.getAllArticles();
             devicesList = repository.communicator.getAllDevices();
             pickingItemsList = repository.communicator.getAllPickingItems();
+            logsList = repository.communicator.getAllLogs();
+            printTemplatesList = repository.communicator.getAllPrintTemplates();
 
-            ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok letöltése SQL adatbázisból befejeződött.");
+            ApplicationLogger.logging(LogLevel.INFORMATION, "A függő adatok letöltése SQL adatbázisból befejeződött.");
         }
         catch (Exception e){
             ApplicationLogger.logging(LogLevel.FATAL, e.getMessage());
@@ -96,8 +118,6 @@ public class ProcessMasterDatas implements Callable {
                 ctpmw.get().sendResultToPresenter(message);
             }
         }
-
-        return true;
     }
 
     private void sendSQLTablesToROOM(){
@@ -114,12 +134,14 @@ public class ProcessMasterDatas implements Callable {
             room.articlesDAO().setArticle(articlesList);
             room.devicesDAO().setDevice(devicesList);
             room.pickingItemsDAO().setPickingItem(pickingItemsList);
+            room.logsDAO().setLog(logsList);
+            room.printTemplatesDAO().setPrintTemplate(printTemplatesList);
             //-----------------------------------------------------------------------
 
-            ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
+            ApplicationLogger.logging(LogLevel.INFORMATION, "A függő adatok feltöltése ROOM adatbázisba befejeződött.");
 
             if(ctpmw != null && ctpmw.get() != null) {
-                Message message = Util.createMessage(Util.PROGRAMSTART_FINISH_2, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
+                Message message = Util.createMessage(Util.PROGRAMSTART_FINISH_2, "Az függő adatok feltöltése ROOM adatbázisba befejeződött.");
                 ctpmw.get().sendResultToPresenter(message);
             }
         }

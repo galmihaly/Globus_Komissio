@@ -21,6 +21,6 @@ public interface ConfigDAO {
     @Query("UPDATE Config SET configName= :configName, configValue= :configValue, userId= :userId, comments= :comments WHERE id = :id")
     void updateConfig(long id, String configName, String configValue, long userId, String comments) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setConfig(List<Config> config) throws Exception;
 }

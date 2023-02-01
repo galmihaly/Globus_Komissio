@@ -21,7 +21,7 @@ public interface VersionDAO {
     @Query("UPDATE Version SET dateCreate= :dateCreate, comments= :comments WHERE id = :id")
     void updateVersion(long id, String dateCreate, String comments) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setVersion(List<Version> version) throws Exception;
 
 }

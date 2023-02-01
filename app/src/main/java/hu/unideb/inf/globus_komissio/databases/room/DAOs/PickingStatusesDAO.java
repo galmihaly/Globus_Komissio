@@ -21,6 +21,6 @@ public interface PickingStatusesDAO {
     @Query("UPDATE PickingStatuses SET name= :name, comments= :comments, backgroundColor= :backgroundColor, foregroundColor= :foregroundColor WHERE id = :id")
     void updatePickingStatuses(long id, String name, String comments, int backgroundColor, int foregroundColor) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setPickingStatuse(List<PickingStatuses> pickingStatuse) throws Exception;
 }

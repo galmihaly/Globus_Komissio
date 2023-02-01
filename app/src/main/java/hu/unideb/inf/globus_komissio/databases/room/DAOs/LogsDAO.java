@@ -21,6 +21,6 @@ public interface LogsDAO {
     @Query("UPDATE Logs SET logTypeId= :logTypeId, logClassId= :logClassId, timeStamp= :tinmeStamp, message= :message, exception= :exception, relatedId= :relatedId, userId= :userid WHERE id = :id")
     void updateLogs(long id, long logTypeId, long logClassId, String tinmeStamp, String message, String exception, String relatedId, long userid) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setLog(List<Logs> log) throws Exception;
 }

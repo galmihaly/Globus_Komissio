@@ -30,6 +30,6 @@ public interface StoragesDAO {
                         String lastTransferAction, int transferFlag, boolean pickingSource, boolean pickingTarget,
                         long receiverUserId, float permanent, long storageTypeId, String parentId) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setStorage(List<Storages> logClass) throws Exception;
 }

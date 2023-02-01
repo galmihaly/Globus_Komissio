@@ -2,6 +2,8 @@ package hu.unideb.inf.globus_komissio.logger;
 
 import android.annotation.SuppressLint;
 
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
+
 public class LogObject {
 
     private final LogLevel loggingLevel;

@@ -36,6 +36,6 @@ public interface PickingItemsDAO {
                         String comments, String barcode) throws Exception;
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setPickingItem(List<PickingItems> pickingItem) throws Exception;
 }

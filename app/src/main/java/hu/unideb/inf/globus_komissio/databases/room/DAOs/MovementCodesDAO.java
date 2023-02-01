@@ -23,7 +23,7 @@ public interface MovementCodesDAO {
     @Query("UPDATE MovementCodes SET name= :name, direction= :direction, comments= :comments, active= :active, dateCreate= :dateCreate, dateMod= :dateMod, lastTransferDate= :lastTransferDate, lastTransferAction= :lastTransferAction, transferFlag= :transferFlag WHERE id = :id")
     void updateMovementCodes(long id, int direction, String name, String comments,  boolean active, String dateCreate, String dateMod, String lastTransferDate, String lastTransferAction, int transferFlag) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setMovementCode(List<MovementCodes> movementCode) throws Exception;
 
 }

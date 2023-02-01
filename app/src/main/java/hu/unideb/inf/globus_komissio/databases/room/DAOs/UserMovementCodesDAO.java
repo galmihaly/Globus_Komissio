@@ -21,6 +21,6 @@ public interface UserMovementCodesDAO {
     @Query("UPDATE UserMovementCodes SET movementCodeId= :movementCodeId, grantor= :grantor, verify= :verify, rightIn= :rightIn, rightOut= :rightOut, userDefault= :userDefault WHERE userId = :userId")
     void updateUserMovementCodes(long userId, long movementCodeId, int grantor, String verify, boolean rightIn, boolean rightOut, boolean userDefault) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setUserMovementCode(List<UserMovementCodes> userMovementCode) throws Exception;
 }

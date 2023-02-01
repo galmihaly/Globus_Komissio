@@ -7,11 +7,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.unideb.inf.globus_komissio.databases.models.UserRights;
+import hu.unideb.inf.globus_komissio.databases.room.Room;
 import hu.unideb.inf.globus_komissio.enums.PageEnums;
 import hu.unideb.inf.globus_komissio.R;
 import hu.unideb.inf.globus_komissio.activities.interfaces.ILoginActivityView;
@@ -79,6 +85,7 @@ public class BarcodeLoginActivity extends AppCompatActivity implements ILoginAct
         readyButton3.setOnClickListener(v -> {
             laPresenter.loginWithBarcode(barcodeTextBox.getText().toString());
         });
+
     }
 
     @Override

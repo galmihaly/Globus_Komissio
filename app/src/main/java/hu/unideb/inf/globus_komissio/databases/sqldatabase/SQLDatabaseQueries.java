@@ -18,7 +18,6 @@ import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.models.Config;
 import hu.unideb.inf.globus_komissio.databases.models.DeviceTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Devices;
-import hu.unideb.inf.globus_komissio.databases.models.LanguageCodes;
 import hu.unideb.inf.globus_komissio.databases.models.LogClasses;
 import hu.unideb.inf.globus_komissio.databases.models.LogTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Logs;
@@ -378,61 +377,6 @@ public class SQLDatabaseQueries implements Communicator {
         }
 
         return deviceTypesList;
-    }
-
-    @Override
-    public List<LanguageCodes> getAllLanguageCodes() {
-        getConnection();
-
-        List<LanguageCodes> languageCodesList = null;
-        if(connection != null) {
-            try {
-
-                languageCodesList = new ArrayList<>();
-
-                query = "SELECT [Id], [Name], [ISO] FROM LanguageCodes";
-
-                stmt = connection.createStatement();
-                rs = stmt.executeQuery(query);
-                size = 0;
-
-                while (rs.next()) {
-                    LanguageCodes languageCodes = new LanguageCodes();
-
-                    languageCodes.setId(rs.getString(1));
-                    languageCodes.setName(rs.getString(2));
-                    languageCodes.setISO(rs.getString(3));
-
-                    languageCodesList.add(languageCodes);
-                    size++;
-                }
-
-                if(size == 0) {
-                    Log.i("s", "Az LanguageCodes táblában a lekérdezhető adatok száma 0!");
-                    return null;
-                }
-
-                rs.close();
-                stmt.close();
-            }
-            catch (SQLException e) {
-                Log.e("s", "Sikertelen olvasás az adatbázisból!!!");
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    Log.e("SQLException", "Az MSSql adatbázis kacsolatának felbontása sikertelen!");
-                }
-            }
-        }
-        else{
-            Log.i("s", "Nem alakult ki kapcsolat az adatbázis és az alkalmazás között!");
-            return null;
-        }
-
-        return languageCodesList;
     }
 
     @Override
@@ -1701,7 +1645,7 @@ public class SQLDatabaseQueries implements Communicator {
     }
 
     @Override
-    public boolean getLoggedUserRights(int right){
+    public boolean getLoggedUserRights(long userId){
         getConnection();
 
         boolean isSuccess = false;
@@ -1711,7 +1655,9 @@ public class SQLDatabaseQueries implements Communicator {
                 LoggedUserContainer loggedUserContainer = LoggedUserContainer.getsInstance();
                 List<RightsContainer> rights = new ArrayList<>();
 
-                query = "SELECT [Id], [Name] from MobileFlex.UserRights UR Join MobileFlex.Rights R On UR.RightId = R.Id where UR.UserId = '" + right + "'";
+                query = "SELECT [Id], [Name] from MobileFlex.UserRights UR " +
+                        "Join MobileFlex.Rights R On UR.RightId = R.Id " +
+                        "WHERE UR.UserId = '" + userId + "'";
 
                 stmt = connection.createStatement();
                 rs = stmt.executeQuery(query);
@@ -1720,7 +1666,7 @@ public class SQLDatabaseQueries implements Communicator {
                 while (rs.next()) {
 
                     RightsContainer rightsContainer = new RightsContainer();
-                    rightsContainer.setId(rs.getInt(1));
+                    rightsContainer.setId(rs.getLong(1));
                     rightsContainer.setName(rs.getString(2));
                     rights.add(rightsContainer);
 

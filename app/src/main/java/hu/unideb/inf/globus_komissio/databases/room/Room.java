@@ -10,7 +10,6 @@ import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.models.Config;
 import hu.unideb.inf.globus_komissio.databases.models.DeviceTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Devices;
-import hu.unideb.inf.globus_komissio.databases.models.LanguageCodes;
 import hu.unideb.inf.globus_komissio.databases.models.LogClasses;
 import hu.unideb.inf.globus_komissio.databases.models.LogTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Logs;
@@ -36,7 +35,6 @@ import hu.unideb.inf.globus_komissio.databases.room.DAOs.ArticlesDAO;
 import hu.unideb.inf.globus_komissio.databases.room.DAOs.ConfigDAO;
 import hu.unideb.inf.globus_komissio.databases.room.DAOs.DeviceTypesDAO;
 import hu.unideb.inf.globus_komissio.databases.room.DAOs.DevicesDAO;
-import hu.unideb.inf.globus_komissio.databases.room.DAOs.LanguageCodesDAO;
 import hu.unideb.inf.globus_komissio.databases.room.DAOs.LogClassesDAO;
 import hu.unideb.inf.globus_komissio.databases.room.DAOs.LogTypesDAO;
 import hu.unideb.inf.globus_komissio.databases.room.DAOs.LogsDAO;
@@ -59,7 +57,7 @@ import hu.unideb.inf.globus_komissio.databases.room.DAOs.VersionDAO;
 import hu.unideb.inf.globus_komissio.databases.room.DAOs.WorkflowsDAO;
 
 
-@Database(entities = {Articles.class, ArticleTypes.class, Config.class, Devices.class, DeviceTypes.class, LanguageCodes.class,
+@Database(entities = {Articles.class, ArticleTypes.class, Config.class, Devices.class, DeviceTypes.class,
         LogClasses.class, Logs.class, LogTypes.class, MovementCodes.class, MovementCodeStorages.class, PickingItems.class,
         PickingItemsLast.class, Pickings.class, PickingStatuses.class, PrintTemplates.class, PrintTemplateTypes.class, Rights.class,
         Storages.class, StorageTypes.class, UserArticleTypes.class, UserMovementCodes.class, UserRights.class, Users.class,
@@ -93,7 +91,6 @@ public abstract class Room extends RoomDatabase {
     public abstract ConfigDAO configDAO();
     public abstract DevicesDAO devicesDAO();
     public abstract DeviceTypesDAO deviceTypesDAO();
-    public abstract LanguageCodesDAO languageCodesDAO();
     public abstract LogClassesDAO logClassesDAO();
     public abstract LogsDAO logsDAO();
     public abstract LogTypesDAO logTypesDAO();

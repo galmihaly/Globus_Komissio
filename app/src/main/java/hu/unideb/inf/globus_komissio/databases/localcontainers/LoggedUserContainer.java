@@ -9,7 +9,7 @@ public class LoggedUserContainer {
 
     private static final LoggedUserContainer sInstance;
 
-    private int id;
+    private long id;
     private String account;
     private String name;
     private String password;
@@ -27,11 +27,11 @@ public class LoggedUserContainer {
         return sInstance;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int newId) {
+    public void setId(long newId) {
         id = newId;
     }
 
@@ -83,7 +83,7 @@ public class LoggedUserContainer {
         barcode = newBarcode;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return active;
     }
 
@@ -97,5 +97,9 @@ public class LoggedUserContainer {
 
     public void setRights(List<RightsContainer> newRights) {
         rights = newRights;
+    }
+
+    public void clearRightsList(){
+        rights.clear();
     }
 }

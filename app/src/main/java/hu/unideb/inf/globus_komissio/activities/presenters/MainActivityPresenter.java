@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference;
 
 import hu.unideb.inf.globus_komissio.enums.PageEnums;
 import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.logger.LogLevel;
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
 import hu.unideb.inf.globus_komissio.enums.UiElementsEnums;
 import hu.unideb.inf.globus_komissio.activities.BarcodeLoginActivity;
 import hu.unideb.inf.globus_komissio.activities.PincodeLoginActivity;
@@ -66,7 +66,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
             iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_2);
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az alap folyamat inicializálása elkezdődött.");
 
-            ProcessBaseDatas callable = new ProcessBaseDatas();
+            ProcessBaseDatas callable = new ProcessBaseDatas(context);
             callable.setCustomThreadPoolManager(mCustomThreadPoolManager);
             mCustomThreadPoolManager.addCallableMethod(callable);
 
@@ -83,7 +83,7 @@ public class MainActivityPresenter implements IMainActivityPresenter, PresenterT
             iMainActivityView.settingUiElementsVisibility(UiElementsEnums.PROGRESS_BAR_3);
             ApplicationLogger.logging(LogLevel.INFORMATION, "Az törzsadat folyamat inicializálása elkezdődött.");
 
-            ProcessMasterDatas callable = new ProcessMasterDatas();
+            ProcessMasterDatas callable = new ProcessMasterDatas(context);
             callable.setCustomThreadPoolManager(mCustomThreadPoolManager);
             mCustomThreadPoolManager.addCallableMethod(callable);
 

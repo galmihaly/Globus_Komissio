@@ -25,7 +25,7 @@ public interface WorkflowsDAO {
                          boolean active, String dateCreate, String dateMod,
                          String lastTransferDate, String lastTransferAction, int transferFlag) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setWorkflow(List<Workflows> logClass) throws Exception;
 
 }

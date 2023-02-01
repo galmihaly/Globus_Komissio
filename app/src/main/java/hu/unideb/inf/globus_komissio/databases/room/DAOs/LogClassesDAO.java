@@ -20,6 +20,6 @@ public interface LogClassesDAO {
     @Query("UPDATE LogClasses SET name= :name, description= :description WHERE id = :id")
     void updateLogClasses(long id, String name, String description) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setLogClass(List<LogClasses> logClass) throws Exception;
 }

@@ -21,6 +21,6 @@ public interface StorageTypesDAO {
     @Query("UPDATE StorageTypes SET name= :name, comments= :comments WHERE id = :id")
     void updateStorageTypes(long id, String name, String comments) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setStorageType(List<StorageTypes> storageType) throws Exception;
 }

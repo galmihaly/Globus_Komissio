@@ -7,7 +7,6 @@ import hu.unideb.inf.globus_komissio.databases.models.Articles;
 import hu.unideb.inf.globus_komissio.databases.models.Config;
 import hu.unideb.inf.globus_komissio.databases.models.DeviceTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Devices;
-import hu.unideb.inf.globus_komissio.databases.models.LanguageCodes;
 import hu.unideb.inf.globus_komissio.databases.models.LogClasses;
 import hu.unideb.inf.globus_komissio.databases.models.LogTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Logs;
@@ -39,7 +38,6 @@ public interface Communicator {
     List<Config> getAllConfig();
     List<Devices> getAllDevices();
     List<DeviceTypes> getAllDeviceTypes();
-    List<LanguageCodes> getAllLanguageCodes();
     List<LogClasses> getAllLogClasses();
     List<Logs> getAllLogs();
     List<LogTypes> getAllLogTypes();
@@ -63,5 +61,5 @@ public interface Communicator {
 
     // speciális lekérdezések
     boolean getLoggedUser(String barcode);
-    boolean getLoggedUserRights(int right);
+    boolean getLoggedUserRights(long userId);
 }

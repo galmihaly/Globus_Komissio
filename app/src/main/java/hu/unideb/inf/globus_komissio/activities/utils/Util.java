@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.logger.LogLevel;
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
 
 public class Util {
 

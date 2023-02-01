@@ -1,5 +1,6 @@
 package hu.unideb.inf.globus_komissio.tasks;
 
+import android.content.Context;
 import android.os.Message;
 
 import java.lang.ref.WeakReference;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.logger.LogLevel;
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
 import hu.unideb.inf.globus_komissio.databases.models.ArticleTypes;
 import hu.unideb.inf.globus_komissio.databases.models.Config;
 import hu.unideb.inf.globus_komissio.databases.models.DeviceTypes;
@@ -33,6 +34,7 @@ public class ProcessBaseDatas implements Callable {
 
     private WeakReference<CustomThreadPoolManager> ctpmw;
     private Room room;
+    private Context context;
 
 
     private List<Version> versionsList;
@@ -51,6 +53,9 @@ public class ProcessBaseDatas implements Callable {
     private List<MovementCodes> movementCodesList;
     private List<ArticleTypes> articleTypesList;
 
+    public ProcessBaseDatas(Context context) {
+        this.context = context;
+    }
 
     public void setCustomThreadPoolManager(CustomThreadPoolManager customThreadPoolManager) {
         this.ctpmw = new WeakReference<>(customThreadPoolManager);
@@ -62,18 +67,28 @@ public class ProcessBaseDatas implements Callable {
         try {
             if (Thread.interrupted()) throw new InterruptedException();
 
-            getSQLTablesToLists();
+            if(Util.isInternetConnection(context)){
+                getSQLTablesToLists();
 
-            room = Room.getInstance();
-            if(room != null){
-               sendSQLTablesToROOM();
+                room = Room.getInstance();
+                if(room != null){
+                    sendSQLTablesToROOM();
+                }
+                else {
+                    ApplicationLogger.logging(LogLevel.FATAL, "A ROOM adatbázis nem jött létre a program indulásakor.");
+
+                    //üzenet a MainActivityPresenter - nek
+                    Message message = Util.createMessage(Util.ROOM_CREATE_FAIL, "A ROOM adatbázis nem jött létre a program indulásakor.");
+                    if(ctpmw != null && ctpmw.get() != null) {
+                        ctpmw.get().sendResultToPresenter(message);
+                    }
+                }
             }
-            else {
-                ApplicationLogger.logging(LogLevel.FATAL, "A ROOM adatbázis nem jött létre a program indulásakor.");
+            else{
+                ApplicationLogger.logging(LogLevel.INFORMATION, "Az alapadatok feltöltése ROOM adatbázisba befejeződött.");
 
-                //üzenet a MainActivityPresenter - nek
-                Message message = Util.createMessage(Util.ROOM_CREATE_FAIL, "A ROOM adatbázis nem jött létre a program indulásakor.");
                 if(ctpmw != null && ctpmw.get() != null) {
+                    Message message = Util.createMessage(Util.PROGRAMSTART_FINISH_1, "Az alapadatok feltöltése folyamat befejeződött.");
                     ctpmw.get().sendResultToPresenter(message);
                 }
             }

@@ -20,6 +20,6 @@ public interface MovementCodesStoragesDAO {
     @Query("UPDATE MovementCodeStorages SET storageId= :storageId, rightIn= :rightIn, rightOut= :rightOut WHERE movementCodeId = :movementCodeId")
     void updateMovementCodeStorages(long movementCodeId, String storageId, boolean rightIn, boolean rightOut) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setMovementCodeStorage(List<MovementCodeStorages> movementCodeStorage) throws Exception;
 }

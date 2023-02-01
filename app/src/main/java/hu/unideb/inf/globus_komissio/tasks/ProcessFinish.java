@@ -6,7 +6,7 @@ import java.lang.ref.WeakReference;
 import java.util.concurrent.Callable;
 
 import hu.unideb.inf.globus_komissio.logger.ApplicationLogger;
-import hu.unideb.inf.globus_komissio.logger.LogLevel;
+import hu.unideb.inf.globus_komissio.enums.LogLevel;
 import hu.unideb.inf.globus_komissio.tasksmanager.CustomThreadPoolManager;
 import hu.unideb.inf.globus_komissio.activities.utils.Util;
 

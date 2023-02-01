@@ -30,6 +30,6 @@ public interface PickingsDAO {
                        long receiverUserId, long articleTypeId, long movementCodeId,
                        String comments, String barcode, String dateBook, String resultText) throws Exception;
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void setPicking(List<Pickings> picking) throws Exception;
 }
