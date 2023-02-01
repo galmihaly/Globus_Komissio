@@ -81,6 +81,11 @@ public class PincodeLoginActivity extends AppCompatActivity implements ILoginAct
     }
 
     @Override
+    public void getClearFromPresenter() {
+        pincodeTextBox.setText("");
+    }
+
+    @Override
     public void sendStringToUiToast(String message) { Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG); }
 
     private void initUiElements() {

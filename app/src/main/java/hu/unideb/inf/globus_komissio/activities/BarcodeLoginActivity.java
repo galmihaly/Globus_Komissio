@@ -86,12 +86,19 @@ public class BarcodeLoginActivity extends AppCompatActivity implements ILoginAct
             laPresenter.loginWithBarcode(barcodeTextBox.getText().toString());
         });
 
+        deleteButton3.setOnClickListener(v -> {
+
+        });
+
     }
 
     @Override
     public void loadOtherActivityPages(Intent intent) {
         startActivity(intent);
     }
+
+    @Override
+    public void getClearFromPresenter() { barcodeTextBox.setText(""); }
 
     @Override
     public void sendStringToUiToast(String message) {

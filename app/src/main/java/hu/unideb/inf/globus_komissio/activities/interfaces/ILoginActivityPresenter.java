@@ -7,6 +7,8 @@ public interface ILoginActivityPresenter {
     void initTaskManager();
     void sendPageEnumToPresenter(PageEnums pageEnums);
     void sendMessageToPresenter(String message);
+    void sendClearToPresenter();
+    void getClearRequest();
     void loginWithPinCode(String pincode);
     void loginWithBarcode(String barcode);
     void loginWithUsernamePassword(String username, String password);

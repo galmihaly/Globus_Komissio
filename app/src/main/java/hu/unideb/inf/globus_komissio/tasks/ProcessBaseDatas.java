@@ -36,7 +36,6 @@ public class ProcessBaseDatas implements Callable {
     private Room room;
     private Context context;
 
-
     private List<Version> versionsList;
     private List<Config> configList;
     private List<StorageTypes> storageTypesList;

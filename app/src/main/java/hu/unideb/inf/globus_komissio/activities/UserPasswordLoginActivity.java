@@ -78,16 +78,15 @@ public class UserPasswordLoginActivity extends AppCompatActivity implements ILog
         numericPanelButton1.setOnClickListener(v -> {
             lap.sendPageEnumToPresenter(PageEnums.PINCODE_LOGINPAGE_ACTIVITY);
         });
-
-        /*readyButton1.setOnClickListener(v -> {
-            Log.e("wifi-connect", String.valueOf(Util.isInternetConnection(getApplicationContext())));
-        });*/
     }
 
     @Override
     public void loadOtherActivityPages(Intent intent) {
         startActivity(intent);
     }
+
+    @Override
+    public void getClearFromPresenter() { usernameTextBox.setText(""); }
 
     @Override
     public void sendStringToUiToast(String message) { Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG); }

@@ -47,6 +47,11 @@ public class LoginActivityPresenter implements ILoginActivityPresenter, Presente
     }
 
     @Override
+    public void getClearRequest() {
+        sendClearToPresenter();
+    }
+
+    @Override
     public void loginWithUsernamePassword(String username, String password) {
         initTaskManager();
     }
@@ -151,6 +156,11 @@ public class LoginActivityPresenter implements ILoginActivityPresenter, Presente
         iLoginActivityView.sendStringToUiToast(message);
     }
 
+    @Override
+    public void sendClearToPresenter() {
+        iLoginActivityView.getClearFromPresenter();
+    }
+
     //PresenterThreadCallback
     @Override
     public void sendResultToPresenter(Message message) {
@@ -179,14 +189,17 @@ public class LoginActivityPresenter implements ILoginActivityPresenter, Presente
                 }
                 case Util.LOGINBARCODE_NORIGHT:{
                     iLoginPageActivityPresenterWeakReference.get().sendMessageToPresenter("Nincs jogosultásga belépni!");
+                    iLoginPageActivityPresenterWeakReference.get().sendClearToPresenter();
                     break;
                 }
                 case Util.LOGINBARCODE_NORIGHTS:{
                     iLoginPageActivityPresenterWeakReference.get().sendMessageToPresenter("Nincs semmilyen jogosultsága!");
+                    iLoginPageActivityPresenterWeakReference.get().sendClearToPresenter();
                     break;
                 }
                 case Util.LOGINBARCODE_FAILED:{
                     iLoginPageActivityPresenterWeakReference.get().sendMessageToPresenter("Nincs ilyen vonalkóddal regisztrált felhasználó!");
+                    iLoginPageActivityPresenterWeakReference.get().sendClearToPresenter();
                     break;
                 }
                 case Util.WIFI_FAILED:{
