@@ -54,7 +54,7 @@ public class Util {
     public static boolean isInternetConnection(Context context){
 
         boolean isConnected;
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if(cm != null){
             Network connectedNetwork = cm.getActiveNetwork();
